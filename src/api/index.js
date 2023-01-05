@@ -21,7 +21,6 @@ const defaultConfig = {
 
 export const DefaultApiInstance = axios.create(defaultConfig);
 
-
 const formDataApiConfig = {
   baseURL: process.env.VUE_APP_BACK_END_URL,
   headers: {

@@ -184,18 +184,20 @@ export default {
       }
 
       const formData = new FormData();
-      formData.append('avatar', this.avatar);
+      if (this.avatar) {
+        formData.append('avatar', this.avatar);
+      }
       Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));
       formData.append('category_id', this.form.categoryId);
 
       try {
-        await this.saveExpert(formData);
+        const currentExpert = await this.saveExpert(formData);
         this.onSuccess('Expert has been created successfully');
         this.resetForm();
         if (this.afterSave === 'close') {
           this.$emit("closeModal");
         } else {
-          await this.$router.push(`/dashboard/experts/edit/${this.lastCreatedExpert.id}`);
+          await this.$router.push(`/dashboard/experts/edit/${currentExpert.id}`);
         }
       } catch (err) {
         SetApiError(err);

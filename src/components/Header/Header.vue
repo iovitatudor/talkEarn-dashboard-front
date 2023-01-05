@@ -18,15 +18,17 @@
                    v-else
                    src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
                    alt="..."/>
+              <span class="user-status online-status" v-if="authExpert.available"></span>
+              <span class="user-status offline-status" v-else></span>
             </span>
           <span class="text-white">{{ authExpert.name }}</span>
           <i class="fi flaticon-arrow-down"/>
         </template>
-        <b-dropdown-item><i class="la la-user"/> My Account</b-dropdown-item>
+        <b-dropdown-item :to="`/dashboard/experts/edit/${authExpert.id}`"><i class="la la-user"/> My Account
+        </b-dropdown-item>
         <b-dropdown-divider/>
-        <b-dropdown-item>Calendar</b-dropdown-item>
         <b-dropdown-item>
-          Inbox &nbsp;&nbsp;<b-badge variant="danger" pill class="animate__animated animate__bounceIn">9</b-badge>
+          Calendar &nbsp;&nbsp;<b-badge variant="danger" pill class="animate__animated animate__bounceIn">9</b-badge>
         </b-dropdown-item>
         <b-dropdown-divider/>
         <b-dropdown-item-button @click="logout">

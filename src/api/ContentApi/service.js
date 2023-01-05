@@ -1,28 +1,24 @@
 import { FormDataApiInstance } from '@/api';
 
-export const ExpertApi = {
-  getAll() {
-    const url = '/api/experts';
+export const ServiceApi = {
+  getByExpert(expertId) {
+    const url = `/api/services/expert/${expertId}`;
     return FormDataApiInstance.get(url);
   },
   getById(id) {
-    const url = `/api/expert/${id}`;
+    const url = `/api/service/${id}`;
     return FormDataApiInstance.get(url);
   },
   create(data) {
-    const url = '/api/expert';
+    const url = '/api/service';
     return FormDataApiInstance.post(url, data);
   },
   edit(id, data) {
-    const url = `/api/expert/${id}`;
+    const url = `/api/service/${id}`;
     return FormDataApiInstance.patch(url, data);
   },
   remove(id) {
-    const url = `/api/expert/${id}`;
+    const url = `/api/service/${id}`;
     return FormDataApiInstance.delete(url);
-  },
-  toggleStatus(id) {
-    const url = `/api/expert/status/${id}`;
-    return FormDataApiInstance.patch(url);
   }
 };

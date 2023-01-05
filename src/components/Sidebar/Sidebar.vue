@@ -8,9 +8,7 @@
         <img src="https://talkearn.app/landing/logo.svg" alt="">
       </router-link>
     </header>
-
 <!--    <a class="generator-link navTitle" target="_blank" href="https://flatlogic.com/generator">Generate App</a>-->
-
     <ul class="nav">
 <!--      <h5 class="navTitle">APP</h5>-->
       <NavLink
@@ -44,13 +42,13 @@
         isHeader
       />
 <!--      <h5 class="navTitle">Templates</h5>-->
-      <NavLink
-        header="Tables Basic"
-        link="/dashboard/tables"
-        iconName="flaticon-equal-3"
-        index="tables"
-        isHeader
-      />
+<!--      <NavLink-->
+<!--        header="Tables Basic"-->
+<!--        link="/dashboard/tables"-->
+<!--        iconName="flaticon-equal-3"-->
+<!--        index="tables"-->
+<!--        isHeader-->
+<!--      />-->
 <!--      <NavLink-->
 <!--        header="Notifications"-->
 <!--        link="/dashboard/notifications"-->

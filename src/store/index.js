@@ -7,6 +7,7 @@ import alert from './alert';
 import categories from './category';
 import parameters from './parameter';
 import experts from './expert';
+import services from './services';
 
 Vue.use(Vuex);
 
@@ -18,5 +19,6 @@ export default new Vuex.Store({
     categories,
     parameters,
     experts,
+    services,
   },
 });

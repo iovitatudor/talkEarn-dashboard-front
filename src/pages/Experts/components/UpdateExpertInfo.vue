@@ -100,6 +100,7 @@ export default {
   computed: {
     ...mapGetters({
       categories: 'categories/getCategories',
+      authExpert: 'auth/getAuthExpert',
     }),
   },
   async mounted() {
@@ -122,7 +123,9 @@ export default {
     async saveForm() {
       try {
         const formData = new FormData();
-        formData.append('avatar', this.avatar);
+        if ( this.avatar) {
+          formData.append('avatar', this.avatar);
+        }
         formData.append('category_id', this.form.categoryId);
         formData.append('email', this.expert.email);
         Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));

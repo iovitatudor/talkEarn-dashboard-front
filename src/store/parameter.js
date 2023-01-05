@@ -30,6 +30,9 @@ export default {
         commit('setParameters', res.data);
       });
     },
+    getByExpert({commit}, id) {
+      return ParameterApi.getByExpert(id);
+    },
     getParameterById({commit}, id) {
       return ParameterApi.getById(id);
     },
@@ -37,6 +40,9 @@ export default {
       return ParameterApi.create(data).then((res) => {
         commit('addParameter', res.data);
       });
+    },
+    saveBulkParameter({commit}, data) {
+      return ParameterApi.createBulk(data.data, data.id);
     },
     editParameter({commit}, data) {
       return ParameterApi.edit(data.id, data.data);

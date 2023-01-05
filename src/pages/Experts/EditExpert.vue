@@ -22,21 +22,26 @@
         </b-row>
         <b-row>
           <b-col md="6">
-            <update-expert-info @reloadComponent="reloadComponents"
-                                :expert="expert"
-                                v-if="expert"
-            />
+            <div>
+              <update-expert-info @reloadComponent="reloadComponents"
+                                  :expert="expert"
+                                  v-if="expert"/>
+            </div>
+            <div>
+              <services-expert :expert-id="expert.id"
+                               v-if="expert"/>
+            </div>
           </b-col>
           <b-col md="6">
-            <update-expert-credentials @reloadComponent="reloadComponents"
-                                       :expert="expert"
-                                       v-if="expert"/>
-          </b-col>
-          <b-col md="6">
-            <services-expert/>
-          </b-col>
-          <b-col md="6">
-            <parameters-expert/>
+            <div>
+              <update-expert-credentials @reloadComponent="reloadComponents"
+                                         :expert="expert"
+                                         v-if="expert"/>
+            </div>
+            <div>
+              <parameters-expert :expert-id="expert.id"
+                                 v-if="expert"/>
+            </div>
           </b-col>
         </b-row>
       </b-col>
@@ -50,7 +55,7 @@ import {mapActions} from "vuex";
 import CreateExpert from "./components/CreateExpert";
 import UpdateExpertInfo from "./components/UpdateExpertInfo";
 import UpdateExpertCredentials from "./components/UpdateExpertCredentials";
-import ServicesExpert from "./components/ServicesExpert";
+import ServicesExpert from "./components/services/ServicesExpert";
 import ParametersExpert from "./components/ParametersExpert";
 import {SetApiError} from "../../api/errors";
 
@@ -59,9 +64,10 @@ export default {
   components: {CreateExpert, UpdateExpertInfo, UpdateExpertCredentials, ServicesExpert, ParametersExpert},
   data() {
     return {
+      services: [],
       ready: true,
       modalShow: false,
-      expert: {},
+      expert: null,
     }
   },
   mounted() {
@@ -70,6 +76,7 @@ export default {
   methods: {
     ...mapActions({
       getExpertById: 'experts/getExpertById',
+      getServicesByExpert: 'services/getServicesByExpert',
     }),
     async initData() {
       const id = parseInt(this.$route.params.id);

@@ -36,7 +36,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(expert, key) in experts" :key="key">
+              <tr v-for="(expert, key) in experts" :key="key" v-if="expert.type !== 'Administrator'"">
                 <td>
                   <b>{{ key + 1 }}</b>
                 </td>
@@ -74,9 +74,9 @@
                     <span class="mb-0">
                       <small>
                         <span class="fw-semi-bold">Profession:</span>
-                        <span class="text-muted">&nbsp; {{
-                            expert.profession ? expert.profession : '---'
-                          }}</span>
+                        <span class="text-muted">
+                          {{expert.profession ? expert.profession : '---' }}
+                        </span>
                       </small>
                     </span>
                   </div>

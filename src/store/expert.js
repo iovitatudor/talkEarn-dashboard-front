@@ -27,10 +27,10 @@ export default {
   },
 
   actions: {
-    saveExpert({commit}, data) {
-      ExpertApi.create(data).then((res) => {
-        commit('addExpert', res.data);
-      });
+    async saveExpert({commit}, data) {
+      const result = await ExpertApi.create(data);
+      commit('addExpert', result.data);
+      return result.data;
     },
     fetchExperts({commit}) {
       return ExpertApi.getAll().then((res) => {
@@ -40,13 +40,28 @@ export default {
     getExpertById({commit}, id) {
       return ExpertApi.getById(id);
     },
-    editExpert({commit}, data) {
-      return ExpertApi.edit(data.id, data.data);
+    async editExpert({commit, rootGetters}, data) {
+      const result = await ExpertApi.edit(data.id, data.data);
+      const expert = result.data;
+      const authExpert = rootGetters['auth/getAuthExpert'];
+      if (authExpert.id === expert.id) {
+        commit('auth/setAuthExpert', expert, {root: true});
+      }
+      return result;
     },
     destroyExpert({commit}, id) {
       return ExpertApi.remove(id).then((res) => {
         commit('deleteExpert', id);
       });
+    },
+    async toggleStatus({commit, rootGetters}, id) {
+      const result = await ExpertApi.toggleStatus(id);
+      const expert = result.data;
+      const authExpert = rootGetters['auth/getAuthExpert'];
+      if (authExpert.id === expert.id) {
+        commit('auth/setAuthExpert', expert, {root: true});
+      }
+      return expert;
     }
   },
 };

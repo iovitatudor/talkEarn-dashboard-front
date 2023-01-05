@@ -13,6 +13,14 @@ export const ParameterApi = {
     const url = '/api/parameter';
     return DefaultApiInstance.post(url, data);
   },
+  createBulk(data, id) {
+    const url = `/api/parameter/expert/${id}`;
+    return DefaultApiInstance.post(url, data);
+  },
+  getByExpert(id) {
+    const url = `/api/parameters/expert/${id}`;
+    return DefaultApiInstance.get(url);
+  },
   edit(id, data) {
     const url = `/api/parameter/${id}`;
     return DefaultApiInstance.patch(url, data);
