@@ -8,16 +8,15 @@
         <spinner v-if="loading"/>
         <ul class="actions video-actions">
           <li class="action">
-            <v-btn
-              class="mx-2"
-              dark color="#E55854"
-              @click="decline"
-            >
-              <v-icon dark>mdi-phone-hangup</v-icon>
-            </v-btn>
+            <b-button @click="decline"
+                      size="lg"
+                      class="ml-2 mr-2"
+                      variant="danger" pill>
+              <i class="la la-close"/>
+            </b-button>
           </li>
           <li class="info-action">
-            <info :room="room" :sender="'John Smith'" :recipient="'Alex Black'"/>
+<!--            <info :room="room" :sender="'John Smith'" :recipient="'Alex Black'"/>-->
           </li>
         </ul>
       </div>
@@ -120,7 +119,6 @@ export default {
         })
 
         room.on('participantConnected', participant => {
-          console.log('participantConnected')
           participant.tracks.forEach(publication => {
             if (publication.isSubscribed) {
               const track = publication.track
