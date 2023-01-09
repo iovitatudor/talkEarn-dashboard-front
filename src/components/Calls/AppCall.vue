@@ -1,8 +1,10 @@
 <template>
-  <div class="call-app" v-if="authExpert.available">
-    <div class="call-container">
-      <in-coming-call :myId='myId' :recipientId='recipientId'/>
-      <video-call :myId='myId' :recipientId='recipientId'/>
+  <div class="call-app-wrapper">
+    <div class="call-app">
+      <div class="call-container">
+        <in-coming-call :myId='myId' :recipientId='recipientId'/>
+        <video-call :myId='myId' :recipientId='recipientId'/>
+      </div>
     </div>
   </div>
 </template>
@@ -32,9 +34,11 @@ export default {
     }),
   },
   created() {
-    // this.recipientId = this.$route.query.recipientId;
+    this.myId = `2wZ*h5C5h$7i`;
+    // this.myId = `expert-${authExpert.id}`;
 
     this.sockets.subscribe(`inComingCall-${this.myId}`, (data) => {
+      this.$el.querySelector('.call-app').classList.add('call-app-display');
       const dataObject = JSON.parse(data);
       this.recipientId = dataObject.senderId;
     });
@@ -54,19 +58,19 @@ export default {
         recipientId: this.recipientId,
       };
       if (!this.callProcess) {
+        this.$el.querySelector('.call-app').classList.add('call-app-display');
         this.$socket.emit('initCall', JSON.stringify(data));
       }
     },
-
     startCall() {
       this.callProcess = true;
       setTimeout(() => {
         this.$el.querySelector('.call-container').classList.add('container-increased');
       }, 10);
     },
-
     endCall() {
       this.$el.querySelector('.call-container').classList.remove('container-increased');
+      this.$el.querySelector('.call-app').classList.remove('call-app-display');
       this.callProcess = false;
     }
   }

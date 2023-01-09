@@ -8,7 +8,7 @@ import router from './Routes';
 import App from './App';
 import layoutMixin from './mixins/layout';
 import VueSocketIO from "vue-socket.io";
-import { io } from "socket.io-client";
+import {io} from "socket.io-client";
 // import {SetTokenToDefaultApiInstance} from './api';
 
 Vue.use(BootstrapVue);
@@ -33,8 +33,6 @@ Vue.use(
 );
 
 Vue.config.productionTip = false;
-
-// SetTokenToDefaultApiInstance(store.getters['auth/getToken']);
 
 /* eslint-disable no-new */
 new Vue({

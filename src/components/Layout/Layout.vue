@@ -1,35 +1,51 @@
 <template>
-<div :class="{root: true, sidebarClose}">
-  <Helper />
-  <Header />
-  <Sidebar />
-  <div ref="content" class="content animated fadeInUp">
-    <transition name="router-animation">
-      <router-view />
-    </transition>
+  <div :class="{root: true, sidebarClose}">
+    <Helper/>
+    <Header/>
+    <Sidebar/>
+    <div ref="content" class="content animated fadeInUp">
+      <transition name="router-animation">
+        <router-view/>
+      </transition>
+    </div>
+    <footer class="contentFooter"></footer>
   </div>
-  <footer class="contentFooter">
-    Light Blue Vue Admin Dashboard Template - Made by <a href="https://flatlogic.com" target="_blank">Flatlogic</a>
-  </footer>
-</div>
 </template>
 
 <script>
-import { mapState, mapActions } from 'vuex';
+import {mapState, mapActions} from 'vuex';
 
 import Sidebar from '@/components/Sidebar/Sidebar';
 import Header from '@/components/Header/Header';
 import Helper from '@/components/Helper/Helper';
 
 import './Layout.scss';
+import {SetApiError} from "../../api/errors";
 
 export default {
   name: 'Layout',
-  components: { Sidebar, Header, Helper },
+  components: {Sidebar, Header, Helper},
   methods: {
-    ...mapActions(
-      'layout', ['switchSidebar', 'changeSidebarActive'],
-    ),
+    ...mapActions({
+      getCategories: 'categories/getCategories',
+      getParameters: 'parameters/getParameters',
+      switchSidebar: 'layout/switchSidebar',
+      changeSidebarActive: 'layout/changeSidebarActive',
+    }),
+    fetchCategories() {
+      try {
+        this.getCategories();
+      } catch (err) {
+        SetApiError(err);
+      }
+    },
+    fetchParameters() {
+      try {
+        this.getParameters();
+      } catch (err) {
+        SetApiError(err);
+      }
+    }
   },
   computed: {
     ...mapState('layout', {
@@ -37,6 +53,8 @@ export default {
     }),
   },
   created() {
+    this.fetchCategories();
+    this.fetchParameters();
   },
   mounted() {
     this.$refs.content.addEventListener('animationend', () => {
@@ -47,4 +65,4 @@ export default {
 };
 </script>
 
-<style src="./Layout.scss" lang="scss" />
+<style src="./Layout.scss" lang="scss"/>

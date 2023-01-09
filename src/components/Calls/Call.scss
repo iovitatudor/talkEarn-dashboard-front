@@ -16,9 +16,23 @@ $blue: #5f4bdb;
   }
 }
 
+.call-app-wrapper {
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+
 .call-app {
+  position: fixed;
+  z-index: 999;
+  height: 100vh;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  bottom: -100%;
+  transition: .3s ease-in-out;
+
   .call-container {
-    position: fixed;
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -56,17 +70,13 @@ $blue: #5f4bdb;
     z-index: 10;
     background-color: $blue;
     height: 100%;
-    //box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%),
-    //0px 4px 5px 0px rgb(0 0 0 / 14%),
-    //0px 1px 10px 0px rgb(0 0 0 / 12%);
+    //box-shadow: 0 2px 4px -1px rgba(0 0 0 / 20%), 0px 4px 5px 0px rgba(0 0 0 / 14%), 0px 1px 10px 0px rgba(0 0 0 / 12%);
   }
 
   .speaking {
     background-color: $dark;
     height: 100%;
-    //box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%),
-    //0px 4px 5px 0px rgb(0 0 0 / 14%),
-    //0px 1px 10px 0px rgb(0 0 0 / 12%);
+    //box-shadow: 0 2px 4px -1px rgba(0 0 0 / 20%), 0px 4px 5px 0px rgba(0 0 0 / 14%), 0px 1px 10px 0px rgba(0 0 0 / 12%);
   }
 
   .details {
@@ -206,7 +216,6 @@ $blue: #5f4bdb;
     border-radius: 100%;
     position: absolute;
     right: 0;
-
   }
 
   @keyframes play {
@@ -228,5 +237,193 @@ $blue: #5f4bdb;
     .container-increased {
       width: 100%;
     }
+  }
+}
+
+.call-app-display {
+  bottom: 0px !important;
+}
+
+.video-container {
+  height: 100%;
+  .video-actions {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    padding: 20px;
+    background-image: url("/img/calls/colorful-sound-wave-equalizer-2.png");
+    background-repeat: no-repeat;
+    background-size: auto 50%;
+    background-position: 2% center;
+
+    .info-action {
+      position: absolute;
+      right: 1%;
+    }
+  }
+
+  .speaking {
+    position: relative;
+  }
+
+  .local-video {
+    height: 30%;
+    margin-bottom: calc(var(--aspect-ratio, .5625) * 100%);
+    overflow: hidden;
+    position: absolute;
+    z-index: 99;
+    right: 7.5%;
+    top: 12px;
+    transform: scale(0);
+    transition: 0.5s;
+    //box-shadow: 0 2px 4px -1px rgba(0 0 0 / 20%, 1), 0px 4px 5px 0px rgba(0 0 0 / 14%,1), 0px 1px 10px 0px rgba(0 0 0 / 12%, 1);
+  }
+
+  .remote-video {
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: 0 auto;
+    padding: 12px;
+    transform: scale(0);
+    transition: 0.5s;
+    //box-shadow: 0 2px 4px -1px rgba(0 0 0 / 20%, 1), 0px 4px 5px 0px rgba(0 0 0 / 14%,1), 0px 1px 10px 0px rgba(0 0 0 / 12%, 1);
+  }
+
+  .speaking {
+    video {
+      height: 100%;
+      margin: 0 auto;
+      display: block;
+    }
+  }
+
+  .local-video-animate {
+    transform: scale(1);
+  }
+
+  .animate {
+    transform: scale(1);
+  }
+
+  @media screen and (max-width: 600px) {
+    .remote-video {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .local-video {
+      width: 30%;
+      height: auto;
+    }
+    .speaking {
+      video {
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+
+.info-details {
+  padding: 20px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  color: #FFF;
+
+  h5 {
+    margin-bottom: 15px;
+  }
+}
+
+
+.spinner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: rotate(-60deg);
+
+  span {
+    position: absolute;
+    border: solid 10px transparent;
+    border-top-width: 6px;
+    border-bottom-width: 6px;
+    display: block;
+    transform: translate(-50%, -50%);
+  }
+
+  .outer {
+    span {
+      width: 50px;
+      height: 26px;
+      animation: destiny2-loading 3000ms infinite;
+
+      &:nth-child(1) {
+        animation-delay: 0s;
+      }
+
+      &:nth-child(2) {
+        transform: translate(-50%, -50%) rotate(60deg);
+        animation-delay: 500ms;
+      }
+
+      &:nth-child(3) {
+        transform: translate(-50%, -50%) rotate(120deg);
+        animation-delay: 1000ms;
+      }
+    }
+  }
+
+  .inner {
+    span {
+      width: 24px;
+      height: 11px;
+      animation: destiny2-loading 1500ms infinite;
+
+      &:nth-child(1) {
+        animation-delay: 500ms;
+      }
+
+      &:nth-child(2) {
+        transform: translate(-50%, -50%) rotate(60deg);
+        animation-delay: 250ms;
+      }
+
+      &:nth-child(3) {
+        transform: translate(-50%, -50%) rotate(120deg);
+        animation-delay: 0s;
+      }
+    }
+  }
+}
+
+@keyframes destiny2-loading {
+  0% {
+    border-left-color: transparent;
+    border-right-color: white;
+  }
+  30% {
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
+  50% {
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
+  50.00001% {
+    border-left-color: white;
+    border-right-color: transparent;
+  }
+  80% {
+    border-left-color: transparent;
+    border-right-color: transparent;
+  }
+  100% {
+    border-left-color: transparent;
+    border-right-color: transparent;
   }
 }

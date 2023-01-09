@@ -37,10 +37,12 @@
                 </td>
                 <td>
                   <router-link :to="`/dashboard/categories/edit/${category.id}`">
-                    <img class="rounded-circle" :src="`${$store.state.layout.processEnv.VUE_APP_BACK_END_URL}/${category.icon}`" width="50px" height="50"
+                    <img class="rounded-circle"
+                         :src="`${$store.state.layout.processEnv.VUE_APP_BACK_END_URL}/${category.icon}`" width="50px"
+                         height="50"
                          v-if="category.icon"/>
                     <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
-                         width="50px"  height="50" v-else/>
+                         width="50px" height="50" v-else/>
                   </router-link>
                 </td>
                 <td>
@@ -66,11 +68,10 @@
 
 <script>
 
-import {mapActions, mapGetters} from "vuex";
+import {mapGetters} from "vuex";
 import Widget from "../../components/Widget/Widget";
 import CreateCategory from "./components/CreateCategory";
 import RemoveCategory from "./components/RemoveCategory";
-import {SetApiError} from "../../api/errors";
 
 export default {
   name: "Categories",
@@ -80,17 +81,5 @@ export default {
       categories: 'categories/getCategories',
     })
   },
-  mounted() {
-    try {
-      this.getCategories();
-    } catch (err) {
-      SetApiError(err);
-    }
-  },
-  methods: {
-    ...mapActions({
-      getCategories: 'categories/getCategories',
-    }),
-  }
 }
 </script>

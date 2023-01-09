@@ -22,29 +22,25 @@ export default {
   mutations: {
     setToken(state, token) {
       state.credentials.token = token;
+      localStorage.removeItem('token');
       localStorage.setItem('token', token);
     },
-
     setExpertRole(state, expertRole) {
       state.credentials.expertRole = expertRole;
       localStorage.setItem('expertRole', expertRole);
     },
-
     setAuthExpert(state, authExpert) {
       state.authExpert = authExpert;
       localStorage.setItem('authExpert', JSON.stringify(authExpert));
     },
-
     deleteToken(state) {
       state.credentials.token = null;
       localStorage.removeItem('token');
     },
-
     deleteExpertRole(state) {
       state.credentials.expertRole = null;
       localStorage.removeItem('expertRole');
     },
-
     deleteAuthExpert(state) {
       state.authExpert = null;
       localStorage.removeItem('authExpert');
@@ -60,7 +56,6 @@ export default {
         SetTokenToDefaultApiInstance(res.data.token);
       });
     },
-
     onRegister({commit}, data) {
       return AuthApi.register(data).then((res) => {
         commit('setToken', res.data.token);
@@ -69,7 +64,6 @@ export default {
         SetTokenToDefaultApiInstance(res.data.token);
       })
     },
-
     onLogout({commit}) {
       commit('deleteToken');
       commit('deleteExpertRole');

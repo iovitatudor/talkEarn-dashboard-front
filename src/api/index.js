@@ -1,13 +1,11 @@
 import axios from 'axios';
 
-const loginConfig = {
+const authConfig = {
   baseURL: process.env.VUE_APP_BACK_END_URL,
   headers: {
     'Content-Type': 'application/json',
   }
 };
-
-export const LoginApiInstance = axios.create(loginConfig);
 
 const token = localStorage.getItem('token');
 
@@ -19,8 +17,6 @@ const defaultConfig = {
   }
 };
 
-export const DefaultApiInstance = axios.create(defaultConfig);
-
 const formDataApiConfig = {
   baseURL: process.env.VUE_APP_BACK_END_URL,
   headers: {
@@ -28,6 +24,10 @@ const formDataApiConfig = {
     'authorization': `Bearer ${token}`,
   }
 };
+
+export const AuthApiInstance = axios.create(authConfig);
+
+export const DefaultApiInstance = axios.create(defaultConfig);
 
 export const FormDataApiInstance = axios.create(formDataApiConfig);
 

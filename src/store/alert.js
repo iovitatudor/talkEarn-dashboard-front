@@ -15,15 +15,12 @@ export default {
     setError(state, message) {
       state.error = message;
     },
-
     resetError(state) {
       state.error = null;
     },
-
     setSuccess(state, message) {
       state.success = message
     },
-
     resetSuccess(state) {
       state.success = null;
     },
@@ -33,16 +30,13 @@ export default {
     onError({commit}, message) {
       commit('setError', message);
     },
-
     onResetError({commit}) {
       commit('resetError');
     },
-
     onSuccess({commit}, message) {
       console.log(message);
       commit('setSuccess', message);
     },
-
     onResetSuccess({commit}) {
       commit('resetSuccess');
     }
