@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 import AuthGuard from './guards/authGuard';
 import GuestGuard from './guards/guestGuard';
+import AdministratorGuard from './guards/administratorGuard';
 import Layout from './components/Layout/Layout';
 import Experts from './pages/Experts/Experts';
 import Categories from './pages/Categories/Categories';
@@ -52,6 +53,7 @@ export default new Router({
         {
           path: 'experts',
           name: 'Experts',
+          beforeEnter: AdministratorGuard,
           component: Experts,
         },
         {
@@ -62,21 +64,25 @@ export default new Router({
         {
           path: 'categories',
           name: 'Categories',
+          beforeEnter: AdministratorGuard,
           component: Categories,
         },
         {
           path: 'categories/edit/:id',
           name: 'EditCategory',
+          beforeEnter: AdministratorGuard,
           component: EditCategory,
         },
         {
           path: 'parameters',
           name: 'Parameters',
+          beforeEnter: AdministratorGuard,
           component: Parameters,
         },
         {
           path: 'parameters/edit/:id',
           name: 'EditParameter',
+          beforeEnter: AdministratorGuard,
           component: EditParameter,
         },
         {

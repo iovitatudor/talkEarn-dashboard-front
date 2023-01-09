@@ -19,6 +19,7 @@
         />
         <h5 class="navTitle">App</h5>
         <NavLink
+          v-if="authExpert.type === 'Administrator'"
           header="Experts"
           link="/dashboard/experts"
           iconName="flaticon-users"
@@ -26,6 +27,7 @@
           isHeader
         />
         <NavLink
+          v-if="authExpert.type === 'Administrator'"
           header="Categories"
           link="/dashboard/categories"
           iconName="flaticon-equal-3"
@@ -33,6 +35,7 @@
           isHeader
         />
         <NavLink
+          v-if="authExpert.type === 'Administrator'"
           header="Parameters"
           link="/dashboard/parameters"
           iconName="flaticon-network-1"
@@ -111,7 +114,7 @@
 </template>
 
 <script>
-import {mapState, mapActions} from 'vuex';
+import {mapState, mapActions, mapGetters} from 'vuex';
 import NavLink from './NavLink/NavLink';
 
 export default {
@@ -152,6 +155,9 @@ export default {
     ...mapState('layout', {
       sidebarOpened: state => !state.sidebarClose,
       activeItem: state => state.sidebarActiveElement,
+    }),
+    ...mapGetters({
+      authExpert: 'auth/getAuthExpert',
     }),
   },
 };

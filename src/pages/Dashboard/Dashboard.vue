@@ -4,17 +4,17 @@
     <b-row>
       <b-col xl="4" xs="12">
         <Widget
-          title="<h6> USERBASE GROWTH </h6>"
+          title="<h6> USER TRAFFIC </h6>"
           close settings customHeader
         >
           <div class="stats-row">
             <div class="stat-item">
-              <h6 class="name">Overall Growth</h6>
-              <p class="value">76.38%</p>
+              <h6 class="name">Overall</h6>
+              <p class="value">1298</p>
             </div>
             <div class="stat-item">
-              <h6 class="name">Montly</h6>
-              <p class="value">10.38%</p>
+              <h6 class="name">Today</h6>
+              <p class="value">12</p>
             </div>
             <div class="stat-item">
               <h6 class="name">24h</h6>
