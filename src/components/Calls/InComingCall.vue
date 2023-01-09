@@ -4,7 +4,7 @@
       <div class="head">
         <div class="call-animation">
           <img
-            src="https://back.talkearn.app/images/products/og/avataaars(1)182af3fbc793dc1fd5b23cad33ffa36053391fe0avataaars(1).png"
+            src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
             alt="">
         </div>
       </div>

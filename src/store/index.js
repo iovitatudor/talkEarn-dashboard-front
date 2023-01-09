@@ -8,6 +8,7 @@ import categories from './category';
 import parameters from './parameter';
 import experts from './expert';
 import services from './services';
+import calls from './call';
 
 Vue.use(Vuex);
 
@@ -20,5 +21,6 @@ export default new Vuex.Store({
     parameters,
     experts,
     services,
+    calls,
   },
 });

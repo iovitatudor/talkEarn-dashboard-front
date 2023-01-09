@@ -26,6 +26,7 @@
 
 <script>
 
+import {mapGetters, mapActions} from "vuex";
 import axios from 'axios';
 import * as twilio from 'twilio-video';
 import busySound from '../../assets/audio/busySound.mp3';
@@ -41,9 +42,13 @@ export default {
       loading: true,
       inCall: false,
       busySound: {},
-      token: null,
       room: null,
     };
+  },
+  computed: {
+    ...mapGetters({
+      token: 'calls/getToken',
+    })
   },
   mounted() {
     this.busySound = new Audio(busySound);
@@ -65,11 +70,14 @@ export default {
     });
   },
   methods: {
+    ...mapActions({
+      getToken: 'calls/getToken',
+    }),
     async startCall() {
       this.inCall = true;
       this.$el.querySelector(".speaking").classList.remove('flip-back');
       this.$el.querySelector(".speaking").classList.remove('-drop');
-      await this.getToken();
+      await this.getToken(this.myId+this.recipientId);
       await this.connectToRoom();
     },
     endCall() {
@@ -78,14 +86,6 @@ export default {
     },
     decline() {
       this.$socket.emit('declineCall', JSON.stringify({senderId: this.myId, recipientId: this.recipientId}));
-    },
-    async getToken() {
-      const host = 'https://core.talkearn.app';
-      // const host = process.env.VUE_APP_BACKEND_URL;
-      const result = await axios.get(
-        `${host}/api/calls/token?identity=identity${this.myId}${this.recipientId}`
-      );
-      this.token = result.data.token;
     },
     async connectToRoom() {
       let audioOutputDevice;

@@ -35,7 +35,7 @@ export default {
   },
   created() {
     // this.myId = `2wZ*h5C5h$7i`;
-    this.myId = `expert-${authExpert.id}`;
+    this.myId = `expert-${this.authExpert.id}`;
 
     this.sockets.subscribe(`inComingCall-${this.myId}`, (data) => {
       this.$el.querySelector('.call-app').classList.add('call-app-display');
