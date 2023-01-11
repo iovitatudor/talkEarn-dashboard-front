@@ -1,6 +1,6 @@
 import {AuthApi} from "../api/AuthApi";
 
-import {SetTokenToDefaultApiInstance} from "../api";
+import {SetTokenToDefaultApiInstance, SetTokenToFormDataApiInstance} from "../api";
 
 export default {
   namespaced: true,
@@ -54,6 +54,7 @@ export default {
         commit('setExpertRole', res.data.expert.type);
         commit('setAuthExpert', res.data.expert);
         SetTokenToDefaultApiInstance(res.data.token);
+        SetTokenToFormDataApiInstance(res.data.token);
       });
     },
     onRegister({commit}, data) {
@@ -62,6 +63,7 @@ export default {
         commit('setExpertRole', res.data.expert.type);
         commit('setAuthExpert', res.data.expert);
         SetTokenToDefaultApiInstance(res.data.token);
+        SetTokenToFormDataApiInstance(res.data.token);
       })
     },
     onLogout({commit}) {

@@ -94,6 +94,15 @@
             </b-form-group>
           </b-col>
         </b-row>
+        <b-form-group label="Video" label-for="video">
+          <b-input-group>
+            <input id="video"
+                   v-model="form.video"
+                   class="form-control input-transparent pl-3"
+                   type="text"
+                   required/>
+          </b-input-group>
+        </b-form-group>
         <b-form-group label="Avatar" label-for="avatar">
           <b-row>
             <b-col class="flex-center" md="8">
@@ -152,6 +161,7 @@ export default {
         passwordAgain: null,
         profession: null,
         price: null,
+        video: null,
         active: true,
       },
       avatar: null,

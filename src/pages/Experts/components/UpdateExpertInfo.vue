@@ -40,6 +40,15 @@
                    required/>
           </b-input-group>
         </b-form-group>
+        <b-form-group label="Video" label-for="video">
+          <b-input-group>
+            <input id="video"
+                   v-model="form.video=expert.video"
+                   class="form-control input-transparent pl-3"
+                   type="text"
+                   required/>
+          </b-input-group>
+        </b-form-group>
 
         <b-form-group label="Avatar" label-for="avatar">
           <b-row>
@@ -92,6 +101,7 @@ export default {
         name: null,
         profession: null,
         price: null,
+        video: null,
         active: true,
       },
       avatar: null,

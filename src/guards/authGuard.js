@@ -8,7 +8,7 @@ const AuthGuard = async function (to, from, next) {
   const hasRole = localStorage.hasOwnProperty('expertRole');
 
   try {
-    await ExpertsApi.getAll();
+    // await ExpertsApi.getAll();
     if (!hasToken || !hasAuth || !hasRole) FailEntry('Something is wrong.', next);
     else next();
   } catch (err) {

@@ -38,3 +38,10 @@ export function SetTokenToDefaultApiInstance(token) {
   });
 }
 
+export function SetTokenToFormDataApiInstance(token) {
+  FormDataApiInstance.interceptors.request.use(function (config) {
+    config.headers['authorization'] = `Bearer ${token}`;
+    return config;
+  });
+}
+

@@ -34,7 +34,7 @@ export default {
     },
     fetchExperts({commit}) {
       return ExpertApi.getAll().then((res) => {
-        commit('setExperts', res.data);
+        commit('setExperts', res.data.data);
       });
     },
     getExpertById({commit}, id) {

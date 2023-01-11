@@ -2,7 +2,7 @@ import { FormDataApiInstance } from '@/api';
 
 export const ExpertApi = {
   getAll() {
-    const url = '/api/experts';
+    const url = '/api/experts/';
     return FormDataApiInstance.get(url);
   },
   getById(id) {
