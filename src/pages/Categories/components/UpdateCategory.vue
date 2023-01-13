@@ -30,7 +30,7 @@
               <b-form-file id="inputIcon" size="sm" ref="fileInput" @change="handleIconUpload"></b-form-file>
             </b-col>
             <b-col>
-              <img class="rounded-circle" :src="`${$store.state.layout.processEnv.VUE_APP_BACK_END_URL}/${category.icon}`" width="100px" height="100"
+              <img class="rounded-circle" :src="`${category.icon}`" width="100px" height="100"
                    v-if="category.icon"/>
               <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
                    alt="" height="100" v-else/>

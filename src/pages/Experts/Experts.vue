@@ -43,7 +43,7 @@
                 <td>
                   <router-link :to="`/dashboard/experts/edit/${expert.id}`">
                     <img class="rounded-circle"
-                         :src="`${$store.state.layout.processEnv.VUE_APP_BACK_END_URL}/${expert.avatar}`" alt=""
+                         :src="`${expert.avatar}`" alt=""
                          height="50" v-if="expert.avatar"/>
                     <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
                          alt="" height="50" v-else/>

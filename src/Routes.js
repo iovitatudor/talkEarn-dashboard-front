@@ -15,13 +15,21 @@ import ErrorPage from './pages/Error/Error';
 import EditCategory from './pages/Categories/EditCategory';
 import EditParameter from './pages/Parameters/EditParameter';
 import EditExpert from './pages/Experts/EditExpert';
-import Users from './pages/Users/Users';
+import AssignedClients from './pages/AssignedClients/AssignedClients';
+import NotAssignedClients from './pages/NotAssignedClients/NotAssignedClients';
+import Calendar from "./pages/Calendar/Calendar";
 
 Vue.use(Router);
 
 export default new Router({
   mode: 'history',
   routes: [
+    {
+      path: '/',
+      name: 'Login',
+      component: Login,
+      beforeEnter: GuestGuard,
+    },
     {
       path: '/login',
       name: 'Login',
@@ -86,9 +94,19 @@ export default new Router({
           component: EditParameter,
         },
         {
-          path: 'users',
-          name: 'Users',
-          component: Users,
+          path: 'not-assigned-clients',
+          name: 'Not assigned clients',
+          component: NotAssignedClients,
+        },
+        {
+          path: 'assigned-clients',
+          name: 'Assigned clients',
+          component: AssignedClients,
+        },
+        {
+          path: 'calendar',
+          name: 'Calendar',
+          component: Calendar,
         },
       ],
     },

@@ -32,7 +32,6 @@
                       v-model="form.description=service.description"
                       rows="3"
                       class="form-control input-transparent pl-3"
-                      required
                       placeholder="Description">
             </textarea>
       </b-input-group>

@@ -12,7 +12,7 @@
             <span class="avatar rounded-circle thumb-sm-1 float-left mr-2">
               <img class="rounded-circle"
                    v-if="authExpert.avatar"
-                   :src="`${$store.state.layout.processEnv.VUE_APP_BACK_END_URL}/${authExpert.avatar}`"
+                   :src="`${authExpert.avatar}`"
                    alt="..."/>
               <img class="rounded-circle"
                    v-else

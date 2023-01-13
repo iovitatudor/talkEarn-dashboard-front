@@ -38,7 +38,7 @@
                 <td>
                   <router-link :to="`/dashboard/categories/edit/${category.id}`">
                     <img class="rounded-circle"
-                         :src="`${$store.state.layout.processEnv.VUE_APP_BACK_END_URL}/${category.icon}`" width="50px"
+                         :src="`${category.icon}`" width="50px"
                          height="50"
                          v-if="category.icon"/>
                     <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"

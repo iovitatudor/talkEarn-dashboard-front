@@ -43,9 +43,23 @@
           isHeader
         />
         <NavLink
-          header="Users"
-          link="/dashboard/users"
+          header="Not Assigned Clients"
+          link="/dashboard/not-assigned-clients"
           iconName="flaticon-users"
+          index="users"
+          isHeader
+        />
+        <NavLink
+          header="Assigned Clients"
+          link="/dashboard/assigned-clients"
+          iconName="flaticon-users"
+          index="users"
+          isHeader
+        />
+        <NavLink
+          header="Calendar"
+          link="/dashboard/calendar"
+          iconName="flaticon-calendar"
           index="users"
           isHeader
         />

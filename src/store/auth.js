@@ -11,12 +11,14 @@ export default {
       expertRole: localStorage.getItem('expertRole') || null,
     },
     authExpert: JSON.parse(localStorage.getItem('authExpert')) || null,
+    project: JSON.parse(localStorage.getItem('project')) || null,
   },
 
   getters: {
     getToken: (state) => state.credentials.token,
     getExpertRole: (state) => state.credentials.expertRole,
     getAuthExpert: (state) => state.authExpert,
+    getProject: (state) => state.project,
   },
 
   mutations: {
@@ -33,6 +35,10 @@ export default {
       state.authExpert = authExpert;
       localStorage.setItem('authExpert', JSON.stringify(authExpert));
     },
+    setProject(state, project) {
+      state.project = project;
+      localStorage.setItem('project', JSON.stringify(project));
+    },
     deleteToken(state) {
       state.credentials.token = null;
       localStorage.removeItem('token');
@@ -45,6 +51,10 @@ export default {
       state.authExpert = null;
       localStorage.removeItem('authExpert');
     },
+    deleteProject(state) {
+      state.project = null;
+      localStorage.removeItem('project');
+    },
   },
 
   actions: {
@@ -53,6 +63,7 @@ export default {
         commit('setToken', res.data.token);
         commit('setExpertRole', res.data.expert.type);
         commit('setAuthExpert', res.data.expert);
+        commit('setProject', res.data.project);
         SetTokenToDefaultApiInstance(res.data.token);
         SetTokenToFormDataApiInstance(res.data.token);
       });
@@ -62,6 +73,7 @@ export default {
         commit('setToken', res.data.token);
         commit('setExpertRole', res.data.expert.type);
         commit('setAuthExpert', res.data.expert);
+        commit('setProject', res.data.project);
         SetTokenToDefaultApiInstance(res.data.token);
         SetTokenToFormDataApiInstance(res.data.token);
       })
@@ -70,6 +82,7 @@ export default {
       commit('deleteToken');
       commit('deleteExpertRole');
       commit('deleteAuthExpert');
+      commit('deleteProject');
     },
   },
 };

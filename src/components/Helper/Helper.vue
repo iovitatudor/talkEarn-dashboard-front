@@ -11,6 +11,7 @@
         <h6>Configuration</h6>
       </header>
       <div class="widget-body mt-3">
+
         <div class="mt-4">
           <NavLink
             v-if="!authExpert.available"
@@ -28,6 +29,12 @@
             class="btn btn-success btn-rounded-f btn-block fs-mini text-white">
             Set Offline
           </NavLink>
+
+          <div class="mt-4 text-center" v-if="project">
+            <p><b>Project token:</b></p>
+            {{ project.token }}
+          </div>
+
 
         </div>
       </div>
@@ -50,6 +57,7 @@ export default {
   computed: {
     ...mapGetters({
       authExpert: 'auth/getAuthExpert',
+      project: 'auth/getProject',
     }),
   },
   methods: {

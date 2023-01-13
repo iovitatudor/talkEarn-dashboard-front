@@ -105,15 +105,22 @@
         </b-form-group>
         <b-form-group label="Avatar" label-for="avatar">
           <b-row>
-            <b-col class="flex-center" md="8">
+            <b-col class="flex-center" md="5">
               <b-form-file id="file-small" size="sm" ref="fileInput" @change="handleIconUpload"></b-form-file>
             </b-col>
-            <b-col class="flex-center" md="4">
+            <b-col class="flex-center" md="3">
               <input class="styled-checkbox"
                      v-model="form.active"
                      id="styled-checkbox-1"
                      type="checkbox">
-              <label for="styled-checkbox-1">Active</label>
+              <label for="styled-checkbox-1"><small>Active</small></label>
+            </b-col>
+            <b-col class="flex-center" md="4">
+              <input class="styled-checkbox"
+                     v-model="form.recommended"
+                     id="styled-checkbox-2"
+                     type="checkbox">
+              <label for="styled-checkbox-1"><small>Recommended</small></label>
             </b-col>
           </b-row>
         </b-form-group>
@@ -163,6 +170,7 @@ export default {
         price: null,
         video: null,
         active: true,
+        recommended: false,
       },
       avatar: null,
       afterSave: 'close',

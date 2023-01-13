@@ -114,6 +114,29 @@
               <span class="badge badge-pill badge-success float-right">9:41</span>
               Stop world water pollution
             </a>
+            <a href="#" class="list-group-item text-ellipsis">
+              <span class="badge badge-pill badge-success float-right">9:41</span>
+              Stop world water pollution
+            </a>
+          </div>
+        </Widget>
+      </b-col>
+      <b-col lg="8" xs="12">
+        <Widget
+          title="<h6>Project Info</h6" bodyClass="p-0"
+          settings close customHeader>
+          <div class="list-group fs-mini">
+            <a href="#" class="list-group-item text-ellipsis">
+              Name:
+             <b> {{ project.name }}</b>
+            </a>
+            <a href="#" class="list-group-item text-ellipsis">
+              URL:
+              <b> {{ project.url }}</b>
+            </a>
+            <a class="list-group-item text-ellipsis">
+              <b-input type="text" :value="project.token" disabled id="tokenInput"></b-input>
+            </a>
           </div>
         </Widget>
       </b-col>
@@ -122,6 +145,8 @@
 </template>
 
 <script>
+
+import {mapGetters} from "vuex";
 import Vue from 'vue';
 import Widget from '@/components/Widget/Widget';
 import Map from './components/Map/Map';
@@ -133,6 +158,11 @@ export default {
   name: 'Visits',
   components: {
     Widget, Map, Calendar, AreaChart, AnimatedNumber
+  },
+  computed: {
+    ...mapGetters({
+      project: 'auth/getProject',
+    }),
   },
   data() {
     return {

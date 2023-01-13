@@ -45,27 +45,30 @@
             <input id="video"
                    v-model="form.video=expert.video"
                    class="form-control input-transparent pl-3"
-                   type="text"
-                   required/>
+                   type="text"/>
           </b-input-group>
         </b-form-group>
 
         <b-form-group label="Avatar" label-for="avatar">
           <b-row>
-            <b-col class="flex-center" md="6">
+            <b-col class="flex-center" md="9">
               <b-form-file id="inputIcon" size="sm" ref="fileInput" @change="handleAvatarUpload"></b-form-file>
             </b-col>
             <b-col md="3">
               <img class="rounded-circle"
-                   :src="`${$store.state.layout.processEnv.VUE_APP_BACK_END_URL}/${expert.avatar}`" width="100px"
+                   :src="`${expert.avatar}`" width="100px"
                    height="100"
                    v-if="expert.avatar"/>
               <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
                    alt="" height="100" v-else/>
             </b-col>
-            <b-col class="flex-center" md="3">
+            <b-col class="flex-center" md="6">
               <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1" v-model="form.active=expert.active">
               <label for="styled-checkbox-1">Active</label>
+            </b-col>
+            <b-col class="flex-center" md="6">
+              <input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value1" v-model="form.recommended=expert.recommended">
+              <label for="styled-checkbox-2">Recommended</label>
             </b-col>
           </b-row>
         </b-form-group>
@@ -100,9 +103,10 @@ export default {
         categoryId: null,
         name: null,
         profession: null,
-        price: null,
-        video: null,
+        price: '',
+        video: '',
         active: true,
+        recommended: false,
       },
       avatar: null,
     };
