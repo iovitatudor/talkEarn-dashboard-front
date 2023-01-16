@@ -77,7 +77,8 @@ export default {
         this.loading = true;
         this.onSuccess('You have successfully logged in!');
         setTimeout(() => {
-          this.$router.push('/dashboard');
+          // this.$router.push('/dashboard');
+          window.location.href = "/dashboard";
         }, 1000);
       }).catch((err) => {
         SetApiError(err);
@@ -88,6 +89,7 @@ export default {
   created() {
     if (window.localStorage.getItem('authenticated') === 'true') {
       this.$router.push('/app/dashboard');
+      window.location.href = "/dashboard";
     }
   },
 };

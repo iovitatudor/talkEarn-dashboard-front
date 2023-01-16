@@ -92,7 +92,8 @@ export default {
     },
     logout() {
       this.onLogout();
-      this.$router.push('/login');
+      window.location.href = "/login";
+      // this.$router.push('/login');
     },
   },
 };
