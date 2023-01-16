@@ -19,7 +19,7 @@ export default {
 
   actions: {
     getToken({commit}, identity) {
-      CallApi.getToken(identity).then(res => {
+      return CallApi.getToken(identity).then(res => {
         commit('setToken', res.data.token);
       });
     },

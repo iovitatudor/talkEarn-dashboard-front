@@ -66,6 +66,7 @@ export default {
     this.sockets.subscribe(`startCall-${this.myId}`, (data) => {
       const dataObject = JSON.parse(data);
       this.room = dataObject.room;
+      console.log( this.room);
       this.startCall();
     });
   },
@@ -75,9 +76,9 @@ export default {
     }),
     async startCall() {
       this.inCall = true;
+      await this.getToken(this.myId+this.recipientId);
       this.$el.querySelector(".speaking").classList.remove('flip-back');
       this.$el.querySelector(".speaking").classList.remove('-drop');
-      await this.getToken(this.myId+this.recipientId);
       await this.connectToRoom();
     },
     endCall() {
