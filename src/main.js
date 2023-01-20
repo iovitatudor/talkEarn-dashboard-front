@@ -9,6 +9,8 @@ import App from './App';
 import layoutMixin from './mixins/layout';
 import VueSocketIO from "vue-socket.io";
 import {io} from "socket.io-client";
+import CKEditor from 'ckeditor4-vue';
+
 // import {SetTokenToDefaultApiInstance} from './api';
 
 Vue.use(BootstrapVue);
@@ -31,6 +33,9 @@ Vue.use(
     },
   })
 );
+
+Vue.use(require('vue-moment'));
+Vue.use(CKEditor);
 
 Vue.config.productionTip = false;
 

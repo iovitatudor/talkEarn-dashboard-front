@@ -36,6 +36,14 @@
         />
         <NavLink
           v-if="authExpert.type === 'Administrator'"
+          header="Collections"
+          link="/dashboard/collections"
+          iconName="flaticon-equal-2"
+          index="collections"
+          isHeader
+        />
+        <NavLink
+          v-if="authExpert.type === 'Administrator'"
           header="Parameters"
           link="/dashboard/parameters"
           iconName="flaticon-network-1"

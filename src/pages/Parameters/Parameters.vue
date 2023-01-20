@@ -57,10 +57,11 @@
 
 <script>
 
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import Widget from "../../components/Widget/Widget";
 import CreateParameter from "./components/CreateParameter";
 import RemoveParameter from "./components/RemoveParameter";
+import {SetApiError} from "../../api/errors";
 
 export default {
   name: "Parameters",
@@ -70,5 +71,17 @@ export default {
       parameters: 'parameters/getParameters',
     })
   },
+  mounted() {
+    try {
+      this.getParameters();
+    } catch (err) {
+      SetApiError(err);
+    }
+  },
+  methods: {
+    ...mapActions({
+      getParameters: 'parameters/getParameters',
+    })
+  }
 }
 </script>

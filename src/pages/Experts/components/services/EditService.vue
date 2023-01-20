@@ -1,6 +1,21 @@
 <template>
   <form class="mt" @submit.prevent="save" v-if="service">
     <b-row>
+      <b-col md="12">
+        <b-form-group label="Collection" label-for="collection">
+          <b-input-group>
+            <select id="collection"
+                    v-model="form.collectionId"
+                    class="form-control input-transparent pl-3">
+              <option :value="collection.id"
+                      :key="key"
+                      v-for="(collection, key) in collections">
+                {{ collection.name }}
+              </option>
+            </select>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
       <b-col>
         <b-form-group label="Title" label-for="title">
           <b-input-group>
@@ -36,26 +51,28 @@
             </textarea>
       </b-input-group>
     </b-form-group>
-    <b-form-group label="Image" label-for="image">
-      <b-row>
-        <b-col class="flex-center" md="10">
+    <div v-if="service.video">
+      <video :src="service.video" width="100%" controls></video>
+    </div>
+    <b-row>
+      <b-col>
+        <b-form-group label="Video" label-for="video">
           <b-form-file :id="`inputImage${service.id}`" size="sm" ref="fileInput"
-                       @change="handleIconUpload"></b-form-file>
-        </b-col>
-        <b-col md="2">
-          <img class="rounded-circle"
-               :src="`${$store.state.layout.processEnv.VUE_APP_BACK_END_URL}/${service.image}`"
-               width="50"
-               height="50"
-               v-if="service.image && service.image !== 'null'"/>
-          <img class="rounded-circle"
-               src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
-               height="50"
-               width="50"
-               v-else/>
-        </b-col>
-      </b-row>
-    </b-form-group>
+                       @change="handleVideoUpload"></b-form-file>
+        </b-form-group>
+      </b-col>
+      <b-col>
+        <b-form-group label="Hash" label-for="hash">
+          <b-input-group>
+            <input id="hash"
+                   v-model="form.hash=service.hash"
+                   class="form-control input-transparent pl-3"
+                   type="text"
+                   required/>
+          </b-input-group>
+        </b-form-group>
+      </b-col>
+    </b-row>
     <div class="form-widget-footer text-right">
       <slot name="remove-service"/>
       <b-button type="submit" variant="success" size="sm" class="ml-4">
@@ -79,15 +96,25 @@ export default {
     service: {type: Object},
     expertId: {type: Number},
   },
+  computed: {
+    ...mapGetters({
+      collections: 'collection/getCollections',
+    }),
+  },
   data() {
     return {
       form: {
+        collectionId: null,
         name: null,
         price: null,
         description: null,
+        hash: null,
       },
-      image: null,
+      video: null,
     }
+  },
+  mounted() {
+    this.form.collectionId = this.service.collectionId;
   },
   methods: {
     ...mapActions({
@@ -95,13 +122,13 @@ export default {
       destroyService: 'services/destroyService',
       onSuccess: 'alert/onSuccess',
     }),
-    handleIconUpload(e) {
-      this.image = e.target.files[0];
+    handleVideoUpload(e) {
+      this.video = e.target.files[0];
     },
     async save() {
       const formData = new FormData();
-      if (this.image) {
-        formData.append('image', this.image);
+      if (this.video) {
+        formData.append('video', this.video);
       }
       formData.append('expert_id', this.expertId);
       Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));

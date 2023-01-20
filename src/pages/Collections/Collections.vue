@@ -2,16 +2,16 @@
   <div class="tables-basic">
     <b-breadcrumb>
       <b-breadcrumb-item to="/dashboard">Dashboard</b-breadcrumb-item>
-      <b-breadcrumb-item active>Categories</b-breadcrumb-item>
+      <b-breadcrumb-item active>Collections</b-breadcrumb-item>
     </b-breadcrumb>
     <b-row>
       <b-col>
         <b-row>
           <b-col>
-            <h2 class="page-title">Categories</h2>
+            <h2 class="page-title">Collections</h2>
           </b-col>
         </b-row>
-        <create-category/>
+        <create-collection/>
       </b-col>
       <b-col md="8">
         <b-row>
@@ -21,43 +21,43 @@
         </b-row>
         <Widget customHeader>
           <div class="table-resposive">
-            <table class="table table-striped" v-if="categories.length">
+            <table class="table table-striped" v-if="collections.length">
               <thead>
               <tr>
                 <th>#</th>
-                <th>Icon</th>
+                <th>Image</th>
                 <th>Name</th>
                 <th>Actions</th>
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(category, key) in categories">
+              <tr v-for="(collection, key) in collections">
                 <td>
                   <b>{{ key + 1 }}</b>
                 </td>
                 <td>
-                  <router-link :to="`/dashboard/categories/edit/${category.id}`">
+                  <router-link :to="`/dashboard/collections/edit/${collection.id}`">
                     <img class="rounded-circle"
-                         :src="`${category.icon}`" width="50px"
+                         :src="`${collection.image}`" width="50px"
                          height="50"
-                         v-if="category.icon"/>
+                         v-if="collection.image"/>
                     <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
                          width="50px" height="50" v-else/>
                   </router-link>
                 </td>
                 <td>
-                  <router-link :to="`/dashboard/categories/edit/${category.id}`">
-                    <b>{{ category.name }}</b>
+                  <router-link :to="`/dashboard/collections/edit/${collection.id}`">
+                    <b>{{ collection.name }}</b>
                   </router-link>
                 </td>
                 <td>
-                  <remove-category :id="category.id"/>
+                  <remove-collection :id="collection.id"/>
                 </td>
               </tr>
               </tbody>
             </table>
             <div class="text-center" v-else>
-              There is no category yet.
+              There is no collections yet.
             </div>
           </div>
         </Widget>
@@ -70,29 +70,29 @@
 
 import {mapActions, mapGetters} from "vuex";
 import Widget from "../../components/Widget/Widget";
-import CreateCategory from "./components/CreateCategory";
-import RemoveCategory from "./components/RemoveCategory";
+import CreateCollection from "./components/CreateCollection";
+import RemoveCollection from "./components/RemoveCollection";
 import {SetApiError} from "../../api/errors";
 
 export default {
   name: "Categories",
-  components: {Widget, CreateCategory, RemoveCategory},
+  components: {Widget, CreateCollection, RemoveCollection},
   computed: {
     ...mapGetters({
-      categories: 'categories/getCategories',
+      collections: 'collection/getCollections',
     })
   },
   mounted() {
     try {
-      this.getCategories();
+      this.getCollections();
     } catch (err) {
       SetApiError(err);
     }
   },
   methods: {
     ...mapActions({
-      getCategories: 'categories/getCategories',
-    }),
+      getCollections: 'collection/getCollections',
+    })
   }
 }
 </script>

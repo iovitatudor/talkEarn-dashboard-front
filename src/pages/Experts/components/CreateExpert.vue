@@ -43,6 +43,17 @@
           </b-col>
         </b-row>
         <b-row>
+          <b-col><br>
+            <b-button type="button" variant="default" size="sm" block @click="hideDescription = !hideDescription">
+              Description
+            </b-button>
+            <b-form-group label="Description" label-for="description" v-if="!hideDescription">
+              <ckeditor :config="editorConfig"></ckeditor>
+            </b-form-group>
+            <br>
+          </b-col>
+        </b-row>
+        <b-row>
           <b-col>
             <b-form-group label="Password" label-for="password">
               <b-input-group>
@@ -94,15 +105,54 @@
             </b-form-group>
           </b-col>
         </b-row>
-        <b-form-group label="Video" label-for="video">
-          <b-input-group>
-            <input id="video"
-                   v-model="form.video"
-                   class="form-control input-transparent pl-3"
-                   type="text"
-                   required/>
-          </b-input-group>
-        </b-form-group>
+        <b-row>
+          <b-col>
+            <b-form-group label="Region" label-for="region">
+              <b-input-group>
+                <input id="region"
+                       v-model="form.region"
+                       class="form-control input-transparent pl-3"
+                       type="text"
+                       placeholder="Region"/>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Language" label-for="language">
+              <b-input-group>
+                <input id="language"
+                       v-model="form.language"
+                       class="form-control input-transparent pl-3"
+                       type="text"
+                       placeholder="Language"/>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="Experience" label-for="experience">
+              <b-input-group>
+                <input id="experience"
+                       v-model="form.experience"
+                       class="form-control input-transparent pl-3"
+                       type="text"
+                       placeholder="Experience"/>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Rating" label-for="rating">
+              <b-input-group>
+                <input id="rating"
+                       v-model="form.rating"
+                       class="form-control input-transparent pl-3"
+                       type="number"
+                       placeholder="Rating"/>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+        </b-row>
         <b-form-group label="Avatar" label-for="avatar">
           <b-row>
             <b-col class="flex-center" md="5">
@@ -160,15 +210,29 @@ export default {
   components: {Widget},
   data() {
     return {
+      editorConfig: {
+        toolbar: [
+          {name: 'Clipboard', items: ['Cut', 'Copy', 'Paste']},
+          {name: 'Links', items: ['Link']},
+          {name: 'BasicStyles', items: ['Bold', 'Italic', 'Strike']},
+          {name: 'Paragraph', items: ['NumberedList', 'BulletedList']},
+          {name: 'Document', items: ['Source', 'Maximize']},
+        ],
+      },
+      hideDescription: true,
       form: {
         categoryId: null,
         name: null,
+        description: '',
         email: null,
         password: null,
         passwordAgain: null,
-        profession: null,
-        price: null,
-        video: null,
+        profession: '',
+        region: '',
+        languages: '',
+        experience: '',
+        rating: 5,
+        price: '',
         active: true,
         recommended: false,
       },

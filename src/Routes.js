@@ -7,16 +7,19 @@ import AdministratorGuard from './guards/administratorGuard';
 import Layout from './components/Layout/Layout';
 import Experts from './pages/Experts/Experts';
 import Categories from './pages/Categories/Categories';
+import Collections from './pages/Collections/Collections';
 import Parameters from './pages/Parameters/Parameters';
 import Dashboard from './pages/Dashboard/Dashboard';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import ErrorPage from './pages/Error/Error';
 import EditCategory from './pages/Categories/EditCategory';
+import EditCollection from './pages/Collections/EditCollection';
 import EditParameter from './pages/Parameters/EditParameter';
 import EditExpert from './pages/Experts/EditExpert';
-import AssignedClients from './pages/AssignedClients/AssignedClients';
-import NotAssignedClients from './pages/NotAssignedClients/NotAssignedClients';
+import AssignedClients from './pages/Clients/AssignedClients';
+import NotAssignedClients from './pages/Clients/NotAssignedClients';
+import EditClient from './pages/Clients/EditClient';
 import Calendar from "./pages/Calendar/Calendar";
 
 Vue.use(Router);
@@ -82,6 +85,18 @@ export default new Router({
           component: EditCategory,
         },
         {
+          path: 'collections',
+          name: 'Collections',
+          beforeEnter: AdministratorGuard,
+          component: Collections,
+        },
+        {
+          path: 'Collections/edit/:id',
+          name: 'EditCollection',
+          beforeEnter: AdministratorGuard,
+          component: EditCollection,
+        },
+        {
           path: 'parameters',
           name: 'Parameters',
           beforeEnter: AdministratorGuard,
@@ -102,6 +117,11 @@ export default new Router({
           path: 'assigned-clients',
           name: 'Assigned clients',
           component: AssignedClients,
+        },
+        {
+          path: 'clients/edit/:id',
+          name: 'EditClient',
+          component: EditClient,
         },
         {
           path: 'calendar',

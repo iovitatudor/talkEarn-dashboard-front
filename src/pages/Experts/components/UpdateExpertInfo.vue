@@ -22,6 +22,11 @@
                    required/>
           </b-input-group>
         </b-form-group>
+        <b-form-group label="Description" label-for="description">
+          <b-input-group>
+            <ckeditor v-model="form.description=expert.description" :config="editorConfig"></ckeditor>
+          </b-input-group>
+        </b-form-group>
         <b-form-group label="Profession" label-for="profession">
           <b-input-group>
             <input id="profession"
@@ -29,6 +34,38 @@
                    class="form-control input-transparent pl-3"
                    type="text"
                    required/>
+          </b-input-group>
+        </b-form-group>
+        <b-form-group label="Region" label-for="region">
+          <b-input-group>
+            <input id="region"
+                   v-model="form.region=expert.region"
+                   class="form-control input-transparent pl-3"
+                   type="text"/>
+          </b-input-group>
+        </b-form-group>
+        <b-form-group label="Language" label-for="language">
+          <b-input-group>
+            <input id="language"
+                   v-model="form.language=expert.language"
+                   class="form-control input-transparent pl-3"
+                   type="text"/>
+          </b-input-group>
+        </b-form-group>
+        <b-form-group label="Experience" label-for="experience">
+          <b-input-group>
+            <input id="experience"
+                   v-model="form.experience=expert.experience"
+                   class="form-control input-transparent pl-3"
+                   type="text"/>
+          </b-input-group>
+        </b-form-group>
+        <b-form-group label="Rating" label-for="rating">
+          <b-input-group>
+            <input id="rating"
+                   v-model="form.rate=expert.rating"
+                   class="form-control input-transparent pl-3"
+                   type="number"/>
           </b-input-group>
         </b-form-group>
         <b-form-group label="Price" label-for="price">
@@ -40,15 +77,6 @@
                    required/>
           </b-input-group>
         </b-form-group>
-        <b-form-group label="Video" label-for="video">
-          <b-input-group>
-            <input id="video"
-                   v-model="form.video=expert.video"
-                   class="form-control input-transparent pl-3"
-                   type="text"/>
-          </b-input-group>
-        </b-form-group>
-
         <b-form-group label="Avatar" label-for="avatar">
           <b-row>
             <b-col class="flex-center" md="9">
@@ -63,11 +91,13 @@
                    alt="" height="100" v-else/>
             </b-col>
             <b-col class="flex-center" md="6">
-              <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1" v-model="form.active=expert.active">
+              <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1"
+                     v-model="form.active=expert.active">
               <label for="styled-checkbox-1">Active</label>
             </b-col>
             <b-col class="flex-center" md="6">
-              <input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value1" v-model="form.recommended=expert.recommended">
+              <input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value1"
+                     v-model="form.recommended=expert.recommended">
               <label for="styled-checkbox-2">Recommended</label>
             </b-col>
           </b-row>
@@ -99,12 +129,25 @@ export default {
   },
   data() {
     return {
+      editorConfig: {
+        toolbar: [
+          {name: 'Clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText']},
+          {name: 'Links', items: ['Link', 'Unlink', 'Anchor']},
+          {name: 'BasicStyles', items: ['Bold', 'Italic', 'Strike']},
+          {name: 'Paragraph', items: ['NumberedList', 'BulletedList']},
+          {name: 'Document', items: ['Source', 'Maximize']},
+        ],
+      },
       form: {
         categoryId: null,
         name: null,
-        profession: null,
+        description: '',
+        profession: '',
+        region: '',
+        rating: '',
+        experience: '',
+        language: '',
         price: '',
-        video: '',
         active: true,
         recommended: false,
       },
@@ -137,7 +180,7 @@ export default {
     async saveForm() {
       try {
         const formData = new FormData();
-        if ( this.avatar) {
+        if (this.avatar) {
           formData.append('avatar', this.avatar);
         }
         formData.append('category_id', this.form.categoryId);

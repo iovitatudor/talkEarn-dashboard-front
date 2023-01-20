@@ -29,12 +29,20 @@ export default {
     ...mapActions({
       getCategories: 'categories/getCategories',
       getParameters: 'parameters/getParameters',
+      getCollections: 'collection/getCollections',
       switchSidebar: 'layout/switchSidebar',
       changeSidebarActive: 'layout/changeSidebarActive',
     }),
     fetchCategories() {
       try {
         this.getCategories();
+      } catch (err) {
+        SetApiError(err);
+      }
+    },
+    fetchCollections() {
+      try {
+        this.getCollections();
       } catch (err) {
         SetApiError(err);
       }
@@ -54,6 +62,7 @@ export default {
   },
   created() {
     this.fetchCategories();
+    this.fetchCollections();
     this.fetchParameters();
   },
   mounted() {

@@ -34,6 +34,11 @@
           </b-col>
           <b-col md="6">
             <div>
+              <update-expert-video @reloadComponent="reloadComponents"
+                                   :expert="expert"
+                                   v-if="expert"/>
+            </div>
+            <div>
               <update-expert-credentials @reloadComponent="reloadComponents"
                                          :expert="expert"
                                          v-if="expert"/>
@@ -57,11 +62,19 @@ import UpdateExpertInfo from "./components/UpdateExpertInfo";
 import UpdateExpertCredentials from "./components/UpdateExpertCredentials";
 import ServicesExpert from "./components/services/ServicesExpert";
 import ParametersExpert from "./components/ParametersExpert";
+import UpdateExpertVideo from "./components/UpdateExpertVideo";
 import {SetApiError} from "../../api/errors";
 
 export default {
   name: "EditExpert",
-  components: {CreateExpert, UpdateExpertInfo, UpdateExpertCredentials, ServicesExpert, ParametersExpert},
+  components: {
+    CreateExpert,
+    UpdateExpertInfo,
+    UpdateExpertCredentials,
+    ServicesExpert,
+    ParametersExpert,
+    UpdateExpertVideo
+  },
   data() {
     return {
       services: [],

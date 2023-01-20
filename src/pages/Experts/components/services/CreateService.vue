@@ -8,59 +8,92 @@
     </b-button>
     <b-modal v-model="modalShow" title="Create new service" hide-footer>
       <div class="pb-16">
-        <form class="mt" @submit.prevent="save">
-          <b-row>
-            <b-col>
-              <b-form-group label="Title" label-for="title">
-                <b-input-group>
-                  <input id="title"
-                         v-model="form.name"
-                         class="form-control input-transparent pl-3"
-                         type="text"
-                         required
-                         placeholder="Title"/>
-                </b-input-group>
-              </b-form-group>
-            </b-col>
-            <b-col>
-              <b-form-group label="Price" label-for="price">
-                <b-input-group>
-                  <input id="price"
-                         v-model="form.price"
-                         class="form-control input-transparent pl-3"
-                         type="number"
-                         required
-                         placeholder="Price"/>
-                </b-input-group>
-              </b-form-group>
-            </b-col>
-          </b-row>
-          <b-form-group label="Description" label-for="description">
-            <b-input-group>
+        <Widget customHeader>
+          <form class="mt" @submit.prevent="save">
+            <b-row>
+              <b-col md="12">
+                <b-form-group label="Collection" label-for="collection">
+                  <b-input-group>
+                    <select id="collection"
+                            v-model="form.collectionId"
+                            class="form-control input-transparent pl-3">
+                      <option :value="collection.id"
+                              :key="key"
+                              v-for="(collection, key) in collections">
+                        {{ collection.name }}
+                      </option>
+                    </select>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+              <b-col>
+                <b-form-group label="Title" label-for="title">
+                  <b-input-group>
+                    <input id="title"
+                           v-model="form.name"
+                           class="form-control input-transparent pl-3"
+                           type="text"
+                           required
+                           placeholder="Title"/>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+              <b-col>
+                <b-form-group label="Price" label-for="price">
+                  <b-input-group>
+                    <input id="price"
+                           v-model="form.price"
+                           class="form-control input-transparent pl-3"
+                           type="number"
+                           required
+                           placeholder="Price"/>
+                  </b-input-group>
+                </b-form-group>
+              </b-col>
+            </b-row>
+            <b-form-group label="Description" label-for="description">
+              <b-input-group>
             <textarea id="description"
                       v-model="form.description"
                       rows="3"
                       class="form-control input-transparent pl-3"
                       placeholder="Description">
             </textarea>
-            </b-input-group>
-          </b-form-group>
-          <b-form-group label="Image" label-for="image">
+              </b-input-group>
+            </b-form-group>
             <b-row>
-              <b-col class="flex-center" md="12">
-                <b-form-file id="inputImage" size="sm" ref="inputImage" @change="handleIconUpload"></b-form-file>
+              <b-col>
+                <b-form-group label="Video" label-for="video">
+                  <b-row>
+                    <b-col class="flex-center" md="12">
+                      <b-form-file id="inputVideo" size="sm" ref="inputVideo" @change="handleVideoUpload"></b-form-file>
+                    </b-col>
+                  </b-row>
+                </b-form-group>
+              </b-col>
+              <b-col>
+                <b-form-group label="Hash" label-for="hash">
+                  <b-input-group>
+                    <input id="hash"
+                           v-model="form.hash"
+                           class="form-control input-transparent pl-3"
+                           type="text"
+                           required
+                           placeholder="Hash"/>
+                  </b-input-group>
+                </b-form-group>
               </b-col>
             </b-row>
-          </b-form-group>
-          <div class="form-widget-footer text-center">
-            <b-button type="submit" variant="success" size="md">
+            <div class="form-widget-footer text-center">
+              <b-button type="submit" variant="success" size="md">
                 <span class="auth-btn-circle">
                   <i class="la la-save"></i>
                 </span>
-              Save
-            </b-button>
-          </div>
-        </form>
+                Save
+              </b-button>
+            </div>
+          </form>
+        </Widget>
       </div>
       <br>
     </b-modal>
@@ -68,11 +101,14 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
+
+import {mapGetters, mapActions} from "vuex";
+import Widget from "../../../../components/Widget/Widget";
 import {SetApiError} from "../../../../api/errors";
 
 export default {
   name: "CreateService",
+  components: {Widget},
   props: {
     expertId: {type: Number},
   },
@@ -80,28 +116,39 @@ export default {
     return {
       modalShow: false,
       form: {
-        name: null,
-        description: null,
+        collectionId: 1,
+        name: '',
+        description: '',
         price: 0,
+        hash: ''
       },
-      image: null,
+      video: null,
     };
+  },
+  computed: {
+    ...mapGetters({
+      collections: 'collection/getCollections',
+    }),
+  },
+  mounted() {
+    this.form.collectionId = this.collections[0].id;
   },
   methods: {
     ...mapActions({
       saveService: 'services/saveService',
       onSuccess: 'alert/onSuccess',
     }),
-    handleIconUpload(e) {
-      this.image = e.target.files[0];
+    handleVideoUpload(e) {
+      this.video = e.target.files[0];
     },
     async save() {
       const formData = new FormData();
-      if (this.image) {
-        formData.append('image', this.image);
+      if (this.video) {
+        formData.append('video', this.video);
       }
       formData.append('expert_id', this.expertId);
       Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));
+      formData.append('collection_id', this.form.collectionId);
 
       try {
         const result = await this.saveService(formData);
@@ -117,7 +164,7 @@ export default {
       this.form.name = null;
       this.form.description = null;
       this.form.price = null;
-      this.$refs.inputImage.reset();
+      this.$refs.inputVideo.reset();
     }
   }
 }

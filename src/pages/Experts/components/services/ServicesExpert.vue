@@ -66,9 +66,11 @@ export default {
       this.initData();
     },
     addService(service) {
+      console.log('add service')
       this.initData();
     },
     editService(service) {
+      console.log('mvldf');
       this.initData();
     }
   }

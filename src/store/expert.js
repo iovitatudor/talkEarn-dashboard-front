@@ -49,6 +49,10 @@ export default {
       }
       return result;
     },
+    async editExpertVideo({commit, rootGetters}, data) {
+      const result = await ExpertApi.editVideo(data.id, data.data);
+      return result;
+    },
     destroyExpert({commit}, id) {
       return ExpertApi.remove(id).then((res) => {
         commit('deleteExpert', id);
