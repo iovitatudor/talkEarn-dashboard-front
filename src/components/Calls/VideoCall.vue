@@ -66,7 +66,6 @@ export default {
     this.sockets.subscribe(`startCall-${this.myId}`, (data) => {
       const dataObject = JSON.parse(data);
       this.room = dataObject.room;
-      console.log( this.room);
       this.startCall();
     });
   },
