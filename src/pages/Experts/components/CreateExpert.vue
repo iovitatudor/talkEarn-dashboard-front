@@ -147,7 +147,8 @@
                 <input id="rating"
                        v-model="form.rating"
                        class="form-control input-transparent pl-3"
-                       type="number"
+                       pattern="^[0-9\.]*$"
+                       type="text"
                        placeholder="Rating"/>
               </b-input-group>
             </b-form-group>

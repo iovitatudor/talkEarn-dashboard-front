@@ -65,7 +65,7 @@
             <input id="rating"
                    v-model="form.rating=expert.rating"
                    class="form-control input-transparent pl-3"
-                   pattern="([0-9]+.{0,1}[0-9]*,{0,1})*[0-9]"
+                   pattern="^[0-9\.]*$"
                    type="text"/>
           </b-input-group>
         </b-form-group>
