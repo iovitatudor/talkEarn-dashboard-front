@@ -34,7 +34,6 @@ export default {
       commit('resetError');
     },
     onSuccess({commit}, message) {
-      console.log(message);
       commit('setSuccess', message);
     },
     onResetSuccess({commit}) {

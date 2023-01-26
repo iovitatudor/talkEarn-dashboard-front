@@ -41,7 +41,7 @@ export default {
       return CollectionApi.edit(data.id, data.data);
     },
     destroyCollection({commit}, id) {
-      return CollectionApi.remove(id).then((res) => {
+      return CollectionApi.remove(id).then(() => {
         commit('deleteCollection', id);
       });
     }

@@ -122,9 +122,6 @@ export default {
       token: 'auth/getToken',
     }),
   },
-  mounted() {
-    console.log(this.token);
-  },
   methods: {
     ...mapActions({
       onRegister: 'auth/onRegister',
@@ -138,7 +135,7 @@ export default {
         return;
       }
 
-      this.onRegister(this.form).then((res) => {
+      this.onRegister(this.form).then(() => {
         this.loading = true;
         this.onSuccess('You have successfully created the account!');
         setTimeout(() => {

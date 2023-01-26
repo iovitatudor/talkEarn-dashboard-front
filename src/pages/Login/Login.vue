@@ -73,7 +73,7 @@ export default {
     }),
     login() {
       this.loading = true;
-      this.onLogin(this.form).then((res) => {
+      this.onLogin(this.form).then(() => {
         this.loading = true;
         this.onSuccess('You have successfully logged in!');
         setTimeout(() => {

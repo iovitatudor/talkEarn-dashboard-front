@@ -44,7 +44,7 @@ export default {
       return await ClientApi.edit(data.id, data.data);
     },
     destroyClient({commit}, id) {
-      return ClientApi.remove(id).then((res) => {
+      return ClientApi.remove(id).then(() => {
         commit('deleteClient', id);
       });
     },

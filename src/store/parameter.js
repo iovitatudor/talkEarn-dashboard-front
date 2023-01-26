@@ -48,7 +48,7 @@ export default {
       return ParameterApi.edit(data.id, data.data);
     },
     destroyParameter({commit}, id) {
-      return ParameterApi.remove(id).then((res) => {
+      return ParameterApi.remove(id).then(() => {
         commit('deleteParameter', id);
       });
     }

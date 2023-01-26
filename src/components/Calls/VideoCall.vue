@@ -27,7 +27,6 @@
 <script>
 
 import {mapGetters, mapActions} from "vuex";
-import axios from 'axios';
 import * as twilio from 'twilio-video';
 import busySound from '../../assets/audio/busySound.mp3';
 import Spinner from "./partials/Spinner";
@@ -54,7 +53,7 @@ export default {
     this.busySound = new Audio(busySound);
   },
   created() {
-    this.sockets.subscribe(`declineCall-${this.myId}`, (data) => {
+    this.sockets.subscribe(`declineCall-${this.myId}`, () => {
       this.endCall();
       if (this.inCall) {
         this.inCall = false;

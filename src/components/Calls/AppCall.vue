@@ -34,9 +34,7 @@ export default {
     }),
   },
   created() {
-    // this.myId = `2wZ*h5C5h$7i`;
     this.myId = `expert-${this.authExpert.id}`;
-    console.log(this.myId);
 
     this.sockets.subscribe(`inComingCall-${this.myId}`, (data) => {
       this.$el.querySelector('.call-app').classList.add('call-app-display');
@@ -44,11 +42,11 @@ export default {
       this.recipientId = dataObject.senderId;
     });
 
-    this.sockets.subscribe(`startCall-${this.myId}`, (data) => {
+    this.sockets.subscribe(`startCall-${this.myId}`, () => {
       this.startCall();
     });
 
-    this.sockets.subscribe(`declineCall-${this.myId}`, (data) => {
+    this.sockets.subscribe(`declineCall-${this.myId}`, () => {
       this.endCall();
     });
   },

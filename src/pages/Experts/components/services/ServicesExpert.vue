@@ -28,7 +28,7 @@
 
 <script>
 
-import {mapActions, mapGetters} from "vuex";
+import {mapActions} from "vuex";
 import {SetApiError} from "../../../../api/errors";
 import Widget from "../../../../components/Widget/Widget";
 import CreateService from "./CreateService";
@@ -62,15 +62,13 @@ export default {
         SetApiError(err);
       }
     },
-    removeService(service) {
+    removeService() {
       this.initData();
     },
-    addService(service) {
-      console.log('add service')
+    addService() {
       this.initData();
     },
-    editService(service) {
-      console.log('mvldf');
+    editService() {
       this.initData();
     }
   }

@@ -37,7 +37,7 @@ export default {
       return ServiceApi.edit(data.id, data.data);
     },
     destroyService({commit}, id) {
-      return ServiceApi.remove(id).then((res) => {
+      return ServiceApi.remove(id).then(() => {
         commit('deleteService', id);
       });
     }

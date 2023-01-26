@@ -31,7 +31,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(category, key) in categories">
+              <tr v-for="(category, key) in categories" :key="key">
                 <td>
                   <b>{{ key + 1 }}</b>
                 </td>

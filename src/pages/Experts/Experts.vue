@@ -36,7 +36,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(expert, key) in experts" :key="key" v-if="expert.type !== 'Administrator'"">
+              <tr v-for="(expert, key) in experts" :key="key" v-if="expert.type !== 'Administrator'">
                 <td>
                   <b>{{ key + 1 }}</b>
                 </td>

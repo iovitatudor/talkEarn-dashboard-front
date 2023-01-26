@@ -54,7 +54,7 @@ export default {
       return result;
     },
     destroyExpert({commit}, id) {
-      return ExpertApi.remove(id).then((res) => {
+      return ExpertApi.remove(id).then(() => {
         commit('deleteExpert', id);
       });
     },

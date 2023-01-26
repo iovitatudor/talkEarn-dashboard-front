@@ -51,16 +51,16 @@ export default {
     this.busySound = new Audio(busySound);
   },
   created() {
-    this.sockets.subscribe(`inComingCall-${this.myId}`, (data) => {
+    this.sockets.subscribe(`inComingCall-${this.myId}`, () => {
       this.setInComingCall();
     });
 
-    this.sockets.subscribe(`declineCall-${this.myId}`, (data) => {
+    this.sockets.subscribe(`declineCall-${this.myId}`, () => {
       this.stopSound();
       this.endCall();
     });
 
-    this.sockets.subscribe(`startCall-${this.myId}`, (data) => {
+    this.sockets.subscribe(`startCall-${this.myId}`, () => {
       this.stopSound();
       this.startCall();
     });

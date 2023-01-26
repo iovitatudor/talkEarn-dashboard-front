@@ -41,7 +41,7 @@ export default {
       return CategoryApi.edit(data.id, data.data);
     },
     destroyCategory({commit}, id) {
-      return CategoryApi.remove(id).then((res) => {
+      return CategoryApi.remove(id).then(() => {
         commit('deleteCategory', id);
       });
     }
