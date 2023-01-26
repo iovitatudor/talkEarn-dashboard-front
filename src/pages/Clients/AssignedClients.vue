@@ -8,11 +8,21 @@
       <b-col>
         <b-row>
           <b-col>
-            <h2 class="page-title">Assigned Clients</h2>
+            <h2 class="page-title">
+              Assigned Clients
+              <a href="#" @click="initClients">
+                <b-icon icon="bootstrap-reboot"></b-icon>
+              </a>
+            </h2>
           </b-col>
         </b-row>
         <Widget customHeader v-if="clients.length">
           <list-clients :clients="clients"/>
+        </Widget>
+        <Widget customHeader v-else>
+          <div class="text-center">
+            There is no clients yet.
+          </div>
         </Widget>
       </b-col>
     </b-row>
@@ -43,9 +53,9 @@ export default {
   },
   mounted() {
     this.initClients();
-    setTimeout(() => {
-      this.initClients();
-    }, 60000);
+    // setTimeout(() => {
+    //   this.initClients();
+    // }, 60000);
   },
   methods: {
     ...mapActions({
