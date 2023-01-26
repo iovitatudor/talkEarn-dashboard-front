@@ -2,7 +2,8 @@
   <li v-if="!childrenLinks && isHeader" :class="{headerLink: true, className}">
     <router-link :to="link" class="sidebar-link">
       <span class="icon">
-        <i :class="fullIconName"></i>
+        <b-icon :icon="iconName"></b-icon>
+        <!--        <i :class="fullIconName"></i>-->
       </span>
       {{header}} <sup v-if="label" :class="'text-' + labelColor" class="headerLabel">{{label}}</sup>
       <b-badge v-if="badge" class="badge rounded-f" variant="primary" pill>{{badge}}</b-badge>
@@ -75,7 +76,7 @@ export default {
   },
   computed: {
     fullIconName() {
-      return `fi ${this.iconName}`;
+      return `${this.iconName}`;
     },
     isActive() {
       return (this.activeItem

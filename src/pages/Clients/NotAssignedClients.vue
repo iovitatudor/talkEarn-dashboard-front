@@ -44,7 +44,7 @@ export default {
     this.initClients();
     setInterval(() => {
       this.initClients();
-    }, 25000);
+    }, 60000);
   },
   methods: {
     ...mapActions({

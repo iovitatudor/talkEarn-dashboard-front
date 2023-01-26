@@ -105,10 +105,10 @@ export default {
     return {
       form: {
         collectionId: null,
-        name: null,
-        price: null,
-        description: null,
-        hash: null,
+        name: '',
+        price: 0,
+        description: '',
+        hash: '',
       },
       video: null,
     }

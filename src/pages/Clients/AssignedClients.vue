@@ -45,7 +45,7 @@ export default {
     this.initClients();
     setTimeout(() => {
       this.initClients();
-    }, 25000);
+    }, 60000);
   },
   methods: {
     ...mapActions({

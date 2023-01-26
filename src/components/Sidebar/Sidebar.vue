@@ -13,7 +13,7 @@
           :activeItem="activeItem"
           header="Dashboard"
           link="/dashboard"
-          iconName="flaticon-home-3"
+          iconName="house-door"
           index="dashboard"
           isHeader
         />
@@ -22,7 +22,7 @@
           v-if="authExpert.type === 'Administrator'"
           header="Experts"
           link="/dashboard/experts"
-          iconName="flaticon-users"
+          iconName="person-circle"
           index="experts"
           isHeader
         />
@@ -30,7 +30,7 @@
           v-if="authExpert.type === 'Administrator'"
           header="Categories"
           link="/dashboard/categories"
-          iconName="flaticon-equal-3"
+          iconName="card-list"
           index="categories"
           isHeader
         />
@@ -38,7 +38,7 @@
           v-if="authExpert.type === 'Administrator'"
           header="Collections"
           link="/dashboard/collections"
-          iconName="flaticon-equal-2"
+          iconName="collection"
           index="collections"
           isHeader
         />
@@ -46,31 +46,38 @@
           v-if="authExpert.type === 'Administrator'"
           header="Parameters"
           link="/dashboard/parameters"
-          iconName="flaticon-network-1"
+          iconName="filter-square"
           index="parameters"
           isHeader
         />
         <NavLink
           header="Not Assigned Clients"
           link="/dashboard/not-assigned-clients"
-          iconName="flaticon-users"
+          iconName="person-x-fill"
           index="users"
           isHeader
         />
         <NavLink
           header="Assigned Clients"
           link="/dashboard/assigned-clients"
-          iconName="flaticon-users"
+          iconName="person-check-fill"
           index="users"
           isHeader
         />
         <NavLink
           header="Calendar"
           link="/dashboard/calendar"
-          iconName="flaticon-calendar"
+          iconName="calendar2-check-fill"
           index="users"
           isHeader
         />
+<!--        <NavLink-->
+<!--          header="Languages"-->
+<!--          link="/dashboard/calendar"-->
+<!--          iconName="globe"-->
+<!--          index="users"-->
+<!--          isHeader-->
+<!--        />-->
         <!--      <NavLink-->
         <!--        header="Notifications"-->
         <!--        link="/dashboard/notifications"-->

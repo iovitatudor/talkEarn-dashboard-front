@@ -161,9 +161,10 @@ export default {
       }
     },
     resetForm() {
-      this.form.name = null;
-      this.form.description = null;
-      this.form.price = null;
+      this.form.name = '';
+      this.form.description = '';
+      this.form.price = 0;
+      this.form.hash = '';
       this.$refs.inputVideo.reset();
     }
   }

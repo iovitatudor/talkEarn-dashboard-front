@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import BootstrapVue from 'bootstrap-vue';
+import {BootstrapVue, BootstrapVueIcons} from 'bootstrap-vue';
 import Vuetify from 'vuetify';
 import Toasted from 'vue-toasted';
 
@@ -14,6 +14,7 @@ import CKEditor from 'ckeditor4-vue';
 // import {SetTokenToDefaultApiInstance} from './api';
 
 Vue.use(BootstrapVue);
+Vue.use(BootstrapVueIcons);
 Vue.use(Vuetify);
 
 Vue.mixin(layoutMixin);
