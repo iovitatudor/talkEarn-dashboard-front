@@ -21,8 +21,8 @@ Vue.mixin(layoutMixin);
 Vue.use(Toasted, {duration: 5000, position: 'top-center'});
 
 const options = {};
-// const host = process.env.VUE_APP_BACK_END_URL
-const host = 'https://core.talkearn.app'
+const host = process.env.VUE_APP_SOCKET_URL
+
 Vue.use(
   new VueSocketIO({
     debug: true,
