@@ -21,6 +21,8 @@ import AssignedClients from './pages/Clients/AssignedClients';
 import NotAssignedClients from './pages/Clients/NotAssignedClients';
 import EditClient from './pages/Clients/EditClient';
 import Calendar from "./pages/Calendar/Calendar";
+import Language from "./pages/Languages/Languages";
+import EditLanguage from './pages/Languages/EditLanguage';
 
 Vue.use(Router);
 
@@ -127,6 +129,16 @@ export default new Router({
           path: 'calendar',
           name: 'Calendar',
           component: Calendar,
+        },
+        {
+          path: 'languages',
+          name: 'Language',
+          component: Language,
+        },
+        {
+          path: 'languages/edit/:id',
+          name: 'EditLanguage',
+          component: EditLanguage,
         },
       ],
     },

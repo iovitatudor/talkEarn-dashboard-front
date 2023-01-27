@@ -71,13 +71,13 @@
           index="users"
           isHeader
         />
-<!--        <NavLink-->
-<!--          header="Languages"-->
-<!--          link="/dashboard/calendar"-->
-<!--          iconName="globe"-->
-<!--          index="users"-->
-<!--          isHeader-->
-<!--        />-->
+        <NavLink
+          header="Languages"
+          link="/dashboard/languages"
+          iconName="globe"
+          index="users"
+          isHeader
+        />
         <!--      <NavLink-->
         <!--        header="Notifications"-->
         <!--        link="/dashboard/notifications"-->
