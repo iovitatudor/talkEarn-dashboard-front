@@ -5,7 +5,8 @@
     >
       <header class="logo">
         <router-link to="/dashboard">
-          <img src="https://talkearn.app/landing/logo.svg" alt="">
+          <b-icon icon="disc"></b-icon>
+          {{ project.name }}
         </router-link>
       </header>
       <ul class="nav">
@@ -187,6 +188,7 @@ export default {
     }),
     ...mapGetters({
       authExpert: 'auth/getAuthExpert',
+      project: 'auth/getProject',
     }),
   },
 };

@@ -1,12 +1,12 @@
 import { FormDataApiInstance } from '@/api';
 
 export const CategoryApi = {
-  getAll() {
-    const url = '/api/categories';
+  getAll(languageAbbr) {
+    const url = `/api/categories?lang=${languageAbbr}`;
     return FormDataApiInstance.get(url);
   },
-  getById(id) {
-    const url = `/api/category/${id}`;
+  getById(id, languageAbbr) {
+    const url = `/api/category/${id}?lang=${languageAbbr}`;
     return FormDataApiInstance.get(url);
   },
   create(data) {

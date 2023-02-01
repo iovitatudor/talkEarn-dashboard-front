@@ -3,24 +3,21 @@
     <Widget customHeader>
       <h5>Update Category</h5>
       <form class="mt" @submit.prevent="updateCategory" v-if="!loading">
-        <b-form-group label="Name" label-for="name">
+        <b-form-group :label="`Name [${defaultLanguage.abbr}]`"  label-for="name">
           <b-input-group>
             <input id="name"
                    v-model="form.name=category.name"
                    class="form-control input-transparent pl-3"
                    type="text"
-                   required
-                   placeholder="Name"/>
+                   required/>
           </b-input-group>
         </b-form-group>
-        <b-form-group label="Description" label-for="description">
+        <b-form-group :label="`Description [${defaultLanguage.abbr}]`" label-for="description">
           <b-input-group>
                 <textarea rows="8"
                           id="description"
                           v-model="form.description=category.description"
-                          class="form-control input-transparent pl-3"
-                          required
-                          placeholder="Description">
+                          class="form-control input-transparent pl-3">
                   </textarea>
           </b-input-group>
         </b-form-group>
@@ -53,7 +50,7 @@
 
 <script>
 
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import Widget from "../../../components/Widget/Widget";
 import {SetApiError} from "../../../api/errors";
 
@@ -71,15 +68,18 @@ export default {
       icon: null,
     }
   },
-  async mounted() {
-    const id = this.$route.params.id
-    try {
-      const res = await this.getCategoryById(id);
-      this.category = res.data;
-      this.loading = false;
-    } catch (err) {
-      SetApiError(err);
+  computed: {
+    ...mapGetters({
+      defaultLanguage: 'language/getDefaultLanguage',
+    })
+  },
+  watch: {
+    defaultLanguage() {
+      this.init();
     }
+  },
+  mounted() {
+    this.init();
   },
   methods: {
     ...mapActions({
@@ -87,6 +87,16 @@ export default {
       onSuccess: 'alert/onSuccess',
       getCategoryById: 'categories/getCategoryById',
     }),
+    async init() {
+      const id = this.$route.params.id
+      try {
+        const res = await this.getCategoryById(id);
+        this.category = res.data;
+        this.loading = false;
+      } catch (err) {
+        SetApiError(err);
+      }
+    },
     handleIconUpload(e) {
       this.icon = e.target.files[0];
     },
@@ -95,6 +105,7 @@ export default {
       if (this.icon) {
         formData.append('icon', this.icon);
       }
+      formData.append('langId', this.defaultLanguage.id);
       formData.append('name', this.form.name);
       formData.append('description', this.form.description);
 

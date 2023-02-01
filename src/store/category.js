@@ -24,13 +24,17 @@ export default {
   },
 
   actions: {
-    getCategories({commit}) {
-      return CategoryApi.getAll().then((res) => {
+    getCategories({commit, rootGetters}) {
+      const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+      const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
+      return CategoryApi.getAll(languageAbbr).then((res) => {
         commit('setCategories', res.data);
       });
     },
-    getCategoryById({commit}, id) {
-      return CategoryApi.getById(id);
+    getCategoryById({commit, rootGetters}, id) {
+      const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+      const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
+      return CategoryApi.getById(id, languageAbbr);
     },
     saveCategory({commit}, data) {
       return CategoryApi.create(data).then((res) => {

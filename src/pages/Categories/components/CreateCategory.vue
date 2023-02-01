@@ -4,32 +4,25 @@
       <h5>Add new category</h5>
       <form class="mt" @submit.prevent="saveCategory">
 
-        <b-tabs>
-          <b-tab :title="language.abbr"
-                 :active="key === 0"
-                 v-for="(language, key) in languages"
-                 :key="key">
-            <b-form-group :label="`Name [${language.abbr}]`" label-for="name">
-              <b-input-group>
-                <input id="name"
-                       v-model="form.name[language.id]"
-                       class="form-control input-transparent pl-3"
-                       type="text"
-                       required/>
-              </b-input-group>
-            </b-form-group>
-            <b-form-group :label="`Description [${language.abbr}]`" label-for="description">
-              <b-input-group>
+        <b-form-group :label="`Name [${defaultLanguage.abbr}]`" label-for="name">
+          <b-input-group>
+            <input id="name"
+                   v-model="form.name"
+                   class="form-control input-transparent pl-3"
+                   type="text"
+                   required/>
+          </b-input-group>
+        </b-form-group>
+        <b-form-group :label="`Description [${defaultLanguage.abbr}]`" label-for="description">
+          <b-input-group>
                 <textarea rows="8"
                           id="description"
-                          v-model="form.description[language.id]"
+                          v-model="form.description"
                           class="form-control input-transparent pl-3"
                           required>
                   </textarea>
-              </b-input-group>
-            </b-form-group>
-          </b-tab>
-        </b-tabs>
+          </b-input-group>
+        </b-form-group>
 
         <b-form-group label="Icon" label-for="icon">
           <b-form-file id="file-small" size="sm" ref="fileInput" @change="handleIconUpload"></b-form-file>
@@ -59,15 +52,15 @@ export default {
   data() {
     return {
       form: {
-        name: {},
-        description: {},
+        name: '',
+        description: '',
       },
       icon: null,
     }
   },
   computed: {
     ...mapGetters({
-      languages: 'language/getLanguages',
+      defaultLanguage: 'language/getDefaultLanguage',
     }),
   },
   methods: {
@@ -80,19 +73,18 @@ export default {
     },
     async saveCategory() {
       const formData = new FormData();
-      this.languages.forEach((language) => {
-        formData.append(`name[${language.id}]`, this.form.name[language.id]);
-        formData.append(`description[${language.id}]`, this.form.description[language.id]);
-      });
-      formData.append('icon', this.icon);
-      // formData.append('name', this.form.name);
-      // formData.append('description', this.form.description);
+      if (this.icon) {
+        formData.append('icon', this.icon);
+      }
+      formData.append('langId', this.defaultLanguage.id);
+      formData.append('name', this.form.name);
+      formData.append('description', this.form.description);
 
       try {
         await this.addCategory(formData);
         this.onSuccess('Category has been created successfully\n');
-        this.form.name = null;
-        this.form.description = null;
+        this.form.name = '';
+        this.form.description = '';
         this.icon = null;
         this.$refs.fileInput.reset();
       } catch (err) {

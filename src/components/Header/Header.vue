@@ -7,6 +7,9 @@
           <b-input class="input-transparent" id="search-input" placeholder="Search Dashboard"/>
         </b-input-group>
       </b-nav-form>
+      <li class="nav-item">
+        <language-switcher/>
+      </li>
       <b-nav-item-dropdown right class="avatar-toggle" menu-class="py-0">
         <template slot="button-content">
             <span class="avatar rounded-circle thumb-sm-1 float-left mr-2">
@@ -55,10 +58,11 @@
 <script>
 import {mapState, mapActions, mapGetters} from 'vuex';
 import Notifications from '@/components/Notifications/Notifications';
+import LanguageSwitcher from './components/LanguageSwitcher';
 
 export default {
   name: 'Header',
-  components: {Notifications},
+  components: {Notifications, LanguageSwitcher},
   data() {
     return {
       showNavbarAlert: true

@@ -52,9 +52,9 @@ export default {
   },
   mounted() {
     this.initClients();
-    setInterval(() => {
-      this.initClients();
-    }, 60000);
+    // setInterval(() => {
+    //   this.initClients();
+    // }, 60000);
   },
   methods: {
     ...mapActions({

@@ -80,19 +80,28 @@ export default {
   computed: {
     ...mapGetters({
       categories: 'categories/getCategories',
+      defaultLanguage: 'language/getDefaultLanguage',
     })
   },
-  mounted() {
-    try {
-      this.getCategories();
-    } catch (err) {
-      SetApiError(err);
+  watch: {
+    defaultLanguage() {
+      this.fetchCategories();
     }
+  },
+  mounted() {
+    this.fetchCategories();
   },
   methods: {
     ...mapActions({
       getCategories: 'categories/getCategories',
     }),
+    fetchCategories() {
+      try {
+        this.getCategories();
+      } catch (err) {
+        SetApiError(err);
+      }
+    }
   }
 }
 </script>

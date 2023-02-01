@@ -27,6 +27,7 @@ export default {
   components: {Sidebar, Header, Helper},
   methods: {
     ...mapActions({
+      getLanguages: 'language/getLanguages',
       getCategories: 'categories/getCategories',
       getParameters: 'parameters/getParameters',
       getCollections: 'collection/getCollections',
@@ -53,6 +54,13 @@ export default {
       } catch (err) {
         SetApiError(err);
       }
+    },
+    fetchLanguages() {
+      try {
+        this.getLanguages();
+      } catch (err) {
+        SetApiError(err);
+      }
     }
   },
   computed: {
@@ -61,6 +69,7 @@ export default {
     }),
   },
   created() {
+    this.fetchLanguages();
     this.fetchCategories();
     this.fetchCollections();
     this.fetchParameters();

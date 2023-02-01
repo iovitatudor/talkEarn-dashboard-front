@@ -26,7 +26,3 @@ export default {
   components: {UpdateCategory},
 }
 </script>
-
-<style scoped>
-
-</style>

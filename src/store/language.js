@@ -4,14 +4,19 @@ export default {
   namespaced: true,
 
   state: {
+    defaultLanguage: {},
     languages: [],
   },
 
   getters: {
     getLanguages: (state) => state.languages,
+    getDefaultLanguage: (state) => state.defaultLanguage,
   },
 
   mutations: {
+    setDefaultLanguage(state, language) {
+      state.defaultLanguage = language;
+    },
     setLanguages(state, languages) {
       state.languages = languages;
     },
@@ -24,9 +29,13 @@ export default {
   },
 
   actions: {
+    setDefaultLanguage({commit}, language) {
+      commit('setDefaultLanguage', language);
+    },
     getLanguages({commit}) {
       return LanguageApi.getAll().then((res) => {
         commit('setLanguages', res.data);
+        commit('setDefaultLanguage', res.data[0]);
       });
     },
     getLanguageById({commit}, id) {

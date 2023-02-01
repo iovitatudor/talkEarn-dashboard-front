@@ -15,7 +15,6 @@
 
 .logo {
   margin: 15px 0;
-  font-size: 18px;
   width: 100%;
   font-weight: $font-weight-normal;
   text-transform: uppercase;
@@ -23,10 +22,12 @@
   transition: width $sidebar-transition-time ease-in-out;
 
   a {
-    color: #3979F6;
     padding: 0 5px;
     text-decoration: none;
     white-space: nowrap;
+    font-weight: 600;
+    font-size: 22px;
+    color: #FFF;
 
     img {
       max-width: 80%;
