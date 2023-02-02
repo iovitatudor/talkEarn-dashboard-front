@@ -56,7 +56,7 @@
 
 <script>
 
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import CreateExpert from "./components/CreateExpert";
 import UpdateExpertInfo from "./components/UpdateExpertInfo";
 import UpdateExpertCredentials from "./components/UpdateExpertCredentials";
@@ -82,6 +82,17 @@ export default {
       modalShow: false,
       expert: null,
     }
+  },
+  watch: {
+    async defaultLanguage() {
+      this.expert = null;
+      await this.initData();
+    }
+  },
+  computed: {
+    ...mapGetters({
+      defaultLanguage: 'language/getDefaultLanguage',
+    }),
   },
   mounted() {
     this.initData();

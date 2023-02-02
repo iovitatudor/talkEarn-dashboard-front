@@ -80,19 +80,28 @@ export default {
   computed: {
     ...mapGetters({
       collections: 'collection/getCollections',
+      defaultLanguage: 'language/getDefaultLanguage',
     })
   },
-  mounted() {
-    try {
-      this.getCollections();
-    } catch (err) {
-      SetApiError(err);
+  watch: {
+    defaultLanguage() {
+      this.init();
     }
+  },
+  mounted() {
+    this.init();
   },
   methods: {
     ...mapActions({
       getCollections: 'collection/getCollections',
-    })
+    }),
+    init() {
+      try {
+        this.getCollections();
+      } catch (err) {
+        SetApiError(err);
+      }
+    }
   }
 }
 </script>

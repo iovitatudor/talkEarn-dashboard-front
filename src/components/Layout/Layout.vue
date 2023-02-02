@@ -25,6 +25,17 @@ import {SetApiError} from "../../api/errors";
 export default {
   name: 'Layout',
   components: {Sidebar, Header, Helper},
+  created() {
+    try {
+      this.getLanguages().then(() => {
+        this.fetchCategories();
+        this.fetchCollections();
+        this.fetchParameters();
+      });
+    } catch (err) {
+      SetApiError(err);
+    }
+  },
   methods: {
     ...mapActions({
       getLanguages: 'language/getLanguages',
@@ -55,24 +66,11 @@ export default {
         SetApiError(err);
       }
     },
-    fetchLanguages() {
-      try {
-        this.getLanguages();
-      } catch (err) {
-        SetApiError(err);
-      }
-    }
   },
   computed: {
     ...mapState('layout', {
       sidebarClose: state => state.sidebarClose,
     }),
-  },
-  created() {
-    this.fetchLanguages();
-    this.fetchCategories();
-    this.fetchCollections();
-    this.fetchParameters();
   },
   mounted() {
     this.$refs.content.addEventListener('animationend', () => {

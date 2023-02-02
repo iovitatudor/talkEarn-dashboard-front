@@ -30,8 +30,10 @@ export default {
         commit('setParameters', res.data);
       });
     },
-    getByExpert({commit}, id) {
-      return ParameterApi.getByExpert(id);
+    getByExpert({commit, rootGetters}, id) {
+      const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+      const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
+      return ParameterApi.getByExpert(id, languageAbbr);
     },
     getParameterById({commit}, id) {
       return ParameterApi.getById(id);
@@ -44,7 +46,7 @@ export default {
     saveBulkParameter({commit}, data) {
       return ParameterApi.createBulk(data.data, data.id);
     },
-    editParameter({commit}, data) {
+    editParameter({commit}, data, langId) {
       return ParameterApi.edit(data.id, data.data);
     },
     destroyParameter({commit}, id) {

@@ -24,13 +24,17 @@ export default {
   },
 
   actions: {
-    getCollections({commit}) {
-      return CollectionApi.getAll().then((res) => {
+    async getCollections({commit, rootGetters}) {
+      const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+      const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
+      return await CollectionApi.getAll(languageAbbr).then((res) => {
         commit('setCollections', res.data);
       });
     },
-    getCollectionById({commit}, id) {
-      return CollectionApi.getById(id);
+    async getCollectionById({commit, rootGetters}, id) {
+      const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+      const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
+      return await CollectionApi.getById(id, languageAbbr);
     },
     saveCollection({commit}, data) {
       return CollectionApi.create(data).then((res) => {

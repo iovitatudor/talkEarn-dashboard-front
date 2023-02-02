@@ -3,7 +3,7 @@
     <Widget customHeader>
       <h5>Update Collection</h5>
       <form class="mt" @submit.prevent="updateCollection" v-if="!loading">
-        <b-form-group label="Name" label-for="name">
+        <b-form-group :label="`Name [${defaultLanguage.abbr}]`" label-for="name">
           <b-input-group>
             <input id="name"
                    v-model="form.name=collection.name"
@@ -13,16 +13,6 @@
                    placeholder="Name"/>
           </b-input-group>
         </b-form-group>
-<!--        <b-form-group label="Description" label-for="description">-->
-<!--          <b-input-group>-->
-<!--                <textarea rows="8"-->
-<!--                          id="description"-->
-<!--                          v-model="form.description=collection.description"-->
-<!--                          class="form-control input-transparent pl-3"-->
-<!--                          placeholder="Description">-->
-<!--                  </textarea>-->
-<!--          </b-input-group>-->
-<!--        </b-form-group>-->
         <b-form-group label="Icon" label-for="icon">
           <b-row>
             <b-col class="flex-center" md="10">
@@ -35,7 +25,6 @@
                    alt="" height="100" v-else/>
             </b-col>
           </b-row>
-
         </b-form-group>
         <div class="form-widget-footer text-center">
           <b-button type="submit" variant="success" size="md">
@@ -52,7 +41,7 @@
 
 <script>
 
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import Widget from "../../../components/Widget/Widget";
 import {SetApiError} from "../../../api/errors";
 
@@ -70,15 +59,18 @@ export default {
       image: null,
     }
   },
-  async mounted() {
-    const id = this.$route.params.id
-    try {
-      const res = await this.getCollectionById(id);
-      this.collection = res.data;
-      this.loading = false;
-    } catch (err) {
-      SetApiError(err);
+  computed: {
+    ...mapGetters({
+      defaultLanguage: 'language/getDefaultLanguage',
+    }),
+  },
+  watch: {
+    defaultLanguage() {
+      this.init();
     }
+  },
+  mounted() {
+    this.init();
   },
   methods: {
     ...mapActions({
@@ -86,6 +78,16 @@ export default {
       onSuccess: 'alert/onSuccess',
       getCollectionById: 'collection/getCollectionById',
     }),
+    async init() {
+      const id = this.$route.params.id
+      try {
+        const res = await this.getCollectionById(id);
+        this.collection = res.data;
+        this.loading = false;
+      } catch (err) {
+        SetApiError(err);
+      }
+    },
     handleIconUpload(e) {
       this.image = e.target.files[0];
     },
@@ -94,6 +96,7 @@ export default {
       if (this.icon) {
         formData.append('image', this.image);
       }
+      formData.append('langId', this.defaultLanguage.id);
       formData.append('name', this.form.name);
       formData.append('description', this.form.description);
 

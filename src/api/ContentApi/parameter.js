@@ -17,8 +17,8 @@ export const ParameterApi = {
     const url = `/api/parameter/expert/${id}`;
     return DefaultApiInstance.post(url, data);
   },
-  getByExpert(id) {
-    const url = `/api/parameters/expert/${id}`;
+  getByExpert(id, languageAbbr) {
+    const url = `/api/parameters/expert/${id}?lang=${languageAbbr}`;
     return DefaultApiInstance.get(url);
   },
   edit(id, data) {

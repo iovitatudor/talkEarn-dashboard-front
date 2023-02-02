@@ -7,7 +7,7 @@
         </b-col>
       </b-row>
       <form class="mt" @submit.prevent="save">
-        <b-form-group :label="parameter.name" :label-for="`${parameter.name}-input`"
+        <b-form-group :label="`${parameter.name} [${defaultLanguage.abbr}]`" :label-for="`${parameter.name}-input`"
                       v-for="(parameter, key) in parameters" :key="key">
           <b-input-group>
             <input :id="`${parameter.name}-input`"
@@ -46,6 +46,7 @@ export default {
     ...mapGetters({
       parameters: 'parameters/getParameters',
       authExpert: 'auth/getAuthExpert',
+      defaultLanguage: 'language/getDefaultLanguage',
     }),
   },
   data() {
@@ -70,8 +71,8 @@ export default {
       try {
         const result = await this.getByExpert(this.expertId);
         this.existedParameters = result.data;
-        this.parameters.map(parameter => {
-          this.formParameters[parameter.id] = this.findExistedParameter(parameter.id);
+        this.parameters.map(async parameter => {
+          this.formParameters[parameter.id] = await this.findExistedParameter(parameter.id);
         })
         this.ready = true;
       } catch (err) {
@@ -84,7 +85,10 @@ export default {
         requestData.push({id: key, value: parameter});
       });
       try {
-        await this.saveBulkParameter({data: requestData, id: this.expertId});
+        await this.saveBulkParameter({
+          data:
+            {parameters: requestData, langId: this.defaultLanguage.id}, id: this.expertId
+        });
         this.onSuccess('Parameter was successfully edited.');
       } catch (err) {
         SetApiError(err);

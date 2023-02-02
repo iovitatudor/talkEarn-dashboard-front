@@ -1,16 +1,16 @@
 import { FormDataApiInstance } from '@/api';
 
 export const CollectionApi = {
-  getAll() {
-    const url = '/api/collections';
+  getAll(languageAbbr) {
+    const url = `/api/collections?lang=${languageAbbr}`;
     return FormDataApiInstance.get(url);
   },
-  getById(id) {
-    const url = `/api/collection/${id}`;
+  getById(id, languageAbbr) {
+    const url = `/api/collection/${id}?lang=${languageAbbr}`;
     return FormDataApiInstance.get(url);
   },
   create(data) {
-    const url = '/api/collection';
+    const url = `/api/collection`;
     return FormDataApiInstance.post(url, data);
   },
   edit(id, data) {

@@ -3,7 +3,7 @@
     <Widget customHeader>
       <h5>Add new Collection</h5>
       <form class="mt" @submit.prevent="saveCollection">
-        <b-form-group label="Name" label-for="name">
+        <b-form-group :label="`Name [${defaultLanguage.abbr}]`" label-for="name">
           <b-input-group>
             <input id="name"
                    v-model="form.name"
@@ -13,17 +13,6 @@
                    placeholder="Name"/>
           </b-input-group>
         </b-form-group>
-<!--        <b-form-group label="Description" label-for="description">-->
-<!--          <b-input-group>-->
-<!--                <textarea rows="8"-->
-<!--                          id="description"-->
-<!--                          v-model="form.description"-->
-<!--                          class="form-control input-transparent pl-3"-->
-<!--                          required-->
-<!--                          placeholder="Description">-->
-<!--                  </textarea>-->
-<!--          </b-input-group>-->
-<!--        </b-form-group>-->
         <b-form-group label="Image" label-for="icon">
           <b-form-file id="file-small" size="sm" ref="fileInput" @change="handleIconUpload"></b-form-file>
         </b-form-group>
@@ -42,7 +31,7 @@
 
 <script>
 
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import Widget from "../../../components/Widget/Widget";
 import {SetApiError} from "../../../api/errors";
 
@@ -58,6 +47,11 @@ export default {
       image: null,
     }
   },
+  computed: {
+    ...mapGetters({
+      defaultLanguage: 'language/getDefaultLanguage',
+    }),
+  },
   methods: {
     ...mapActions({
       addCollection: 'collection/saveCollection',
@@ -68,7 +62,10 @@ export default {
     },
     async saveCollection() {
       const formData = new FormData();
-      formData.append('image', this.image);
+      if (this.image) {
+        formData.append('image', this.image);
+      }
+      formData.append('langId', this.defaultLanguage.id);
       formData.append('name', this.form.name);
       formData.append('description', this.form.description);
 
