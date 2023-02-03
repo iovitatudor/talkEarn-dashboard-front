@@ -13,7 +13,7 @@
             </select>
           </b-input-group>
         </b-form-group>
-        <b-form-group label="Name" label-for="name">
+        <b-form-group :label="`Name [${defaultLanguage.abbr}]`" label-for="name">
           <b-input-group>
             <input id="name"
                    v-model="form.name=expert.name"
@@ -22,12 +22,12 @@
                    required/>
           </b-input-group>
         </b-form-group>
-        <b-form-group label="Description" label-for="description">
+        <b-form-group :label="`Description [${defaultLanguage.abbr}]`" label-for="description">
           <b-input-group>
             <ckeditor v-model="form.description=expert.description" :config="editorConfig"></ckeditor>
           </b-input-group>
         </b-form-group>
-        <b-form-group label="Profession" label-for="profession">
+        <b-form-group :label="`Profession [${defaultLanguage.abbr}]`" label-for="profession">
           <b-input-group>
             <input id="profession"
                    v-model="form.profession=expert.profession"
@@ -36,7 +36,7 @@
                    required/>
           </b-input-group>
         </b-form-group>
-        <b-form-group label="Region" label-for="region">
+        <b-form-group :label="`Region [${defaultLanguage.abbr}]`" label-for="region">
           <b-input-group>
             <input id="region"
                    v-model="form.region=expert.region"
@@ -44,7 +44,7 @@
                    type="text"/>
           </b-input-group>
         </b-form-group>
-        <b-form-group label="Language" label-for="language">
+        <b-form-group :label="`Language [${defaultLanguage.abbr}]`" label-for="language">
           <b-input-group>
             <input id="language"
                    v-model="form.language=expert.language"
@@ -52,7 +52,7 @@
                    type="text"/>
           </b-input-group>
         </b-form-group>
-        <b-form-group label="Experience" label-for="experience">
+        <b-form-group :label="`Experience [${defaultLanguage.abbr}]`" label-for="experience">
           <b-input-group>
             <input id="experience"
                    v-model="form.experience=expert.experience"
@@ -159,6 +159,7 @@ export default {
     ...mapGetters({
       categories: 'categories/getCategories',
       authExpert: 'auth/getAuthExpert',
+      defaultLanguage: 'language/getDefaultLanguage',
     }),
   },
   async mounted() {
@@ -185,6 +186,7 @@ export default {
           formData.append('avatar', this.avatar);
         }
         formData.append('category_id', this.form.categoryId);
+        formData.append('langId', this.defaultLanguage.id);
         formData.append('email', this.expert.email);
         Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));
         const res = await this.editExpert({id: this.expert.id, data: formData});

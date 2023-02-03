@@ -18,7 +18,7 @@
         </b-form-group>
         <b-row>
           <b-col>
-            <b-form-group label="Name" label-for="name">
+            <b-form-group :label="`Name [${defaultLanguage.abbr}]`" label-for="name">
               <b-input-group>
                 <input id="name"
                        v-model="form.name"
@@ -45,9 +45,9 @@
         <b-row>
           <b-col><br>
             <b-button type="button" variant="default" size="sm" block @click="hideDescription = !hideDescription">
-              Description
+              Description [{{defaultLanguage.abbr}}]
             </b-button>
-            <b-form-group label="Description" label-for="description" v-if="!hideDescription">
+            <b-form-group :label="`Description [${defaultLanguage.abbr}]`"  label-for="description" v-if="!hideDescription">
               <ckeditor :config="editorConfig"></ckeditor>
             </b-form-group>
             <br>
@@ -81,14 +81,14 @@
         </b-row>
         <b-row>
           <b-col>
-            <b-form-group label="Profession" label-for="profession">
+            <b-form-group label="Rating" label-for="rating">
               <b-input-group>
-                <input id="profession"
-                       v-model="form.profession"
+                <input id="rating"
+                       v-model="form.rating"
                        class="form-control input-transparent pl-3"
+                       pattern="^[0-9\.]*$"
                        type="text"
-                       required
-                       placeholder="Profession"/>
+                       placeholder="Rating"/>
               </b-input-group>
             </b-form-group>
           </b-col>
@@ -107,7 +107,7 @@
         </b-row>
         <b-row>
           <b-col>
-            <b-form-group label="Region" label-for="region">
+            <b-form-group :label="`Region [${defaultLanguage.abbr}]`" label-for="region">
               <b-input-group>
                 <input id="region"
                        v-model="form.region"
@@ -118,7 +118,7 @@
             </b-form-group>
           </b-col>
           <b-col>
-            <b-form-group label="Language" label-for="language">
+            <b-form-group :label="`Language [${defaultLanguage.abbr}]`" label-for="language">
               <b-input-group>
                 <input id="language"
                        v-model="form.language"
@@ -131,25 +131,25 @@
         </b-row>
         <b-row>
           <b-col>
-            <b-form-group label="Experience" label-for="experience">
+            <b-form-group :label="`Profession [${defaultLanguage.abbr}]`" label-for="profession">
+              <b-input-group>
+                <input id="profession"
+                       v-model="form.profession"
+                       class="form-control input-transparent pl-3"
+                       type="text"
+                       required
+                       placeholder="Profession"/>
+              </b-input-group>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group :label="`Experience [${defaultLanguage.abbr}]`" label-for="experience">
               <b-input-group>
                 <input id="experience"
                        v-model="form.experience"
                        class="form-control input-transparent pl-3"
                        type="text"
                        placeholder="Experience"/>
-              </b-input-group>
-            </b-form-group>
-          </b-col>
-          <b-col>
-            <b-form-group label="Rating" label-for="rating">
-              <b-input-group>
-                <input id="rating"
-                       v-model="form.rating"
-                       class="form-control input-transparent pl-3"
-                       pattern="^[0-9\.]*$"
-                       type="text"
-                       placeholder="Rating"/>
               </b-input-group>
             </b-form-group>
           </b-col>
@@ -245,6 +245,7 @@ export default {
     ...mapGetters({
       categories: 'categories/getCategories',
       lastCreatedExpert: 'experts/getLastCreatedExpert',
+      defaultLanguage: 'language/getDefaultLanguage',
     }),
   },
   mounted() {
@@ -272,6 +273,7 @@ export default {
       }
       Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));
       formData.append('category_id', this.form.categoryId);
+      formData.append('langId', this.defaultLanguage.id);
 
       try {
         const currentExpert = await this.saveExpert(formData);

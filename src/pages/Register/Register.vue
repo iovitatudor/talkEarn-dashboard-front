@@ -14,7 +14,7 @@
                             class="form-control input-transparent pl-3"
                             type="text"
                             required
-                            placeholder="Project Name"/>
+                            placeholder="Instantexpert"/>
             </b-input-group>
           </b-form-group>
           <b-form-group label="Project URL" label-for="project-url">
@@ -25,7 +25,29 @@
                      class="form-control input-transparent pl-3"
                      type="text"
                      required
-                     placeholder="Project URL"/>
+                     placeholder="https://instantexpert.online"/>
+            </b-input-group>
+          </b-form-group>
+          <b-form-group label="Default Language" label-for="language-name">
+            <b-input-group>
+              <input id="language-name"
+                     ref="language-name"
+                     v-model="form.language.name"
+                     class="form-control input-transparent pl-3"
+                     type="text"
+                     required
+                     placeholder="English"/>
+            </b-input-group>
+          </b-form-group>
+          <b-form-group label="Language Abbreviation" label-for="language-abbr">
+            <b-input-group>
+              <input id="language-abbr"
+                     ref="language-abbr"
+                     v-model="form.language.abbr"
+                     class="form-control input-transparent pl-3"
+                     type="text"
+                     required
+                     placeholder="en"/>
             </b-input-group>
           </b-form-group>
           <b-form-group label="Name" label-for="name">
@@ -36,7 +58,7 @@
                      class="form-control input-transparent pl-3"
                      type="text"
                      required
-                     placeholder="Name"/>
+                     placeholder="John Doe"/>
             </b-input-group>
           </b-form-group>
           <b-form-group label="Email" label-for="email">
@@ -47,7 +69,7 @@
                      class="form-control input-transparent pl-3"
                      type="email"
                      required
-                     placeholder="Email"/>
+                     placeholder="john-doe@gmail.com"/>
             </b-input-group>
           </b-form-group>
           <b-form-group label="Password" label-for="password">
@@ -114,6 +136,10 @@ export default {
           password: null,
           passwordAgain: null,
         },
+        language: {
+          name: '',
+          abbr: '',
+        }
       }
     };
   },

@@ -17,7 +17,7 @@
         </b-form-group>
       </b-col>
       <b-col>
-        <b-form-group label="Title" label-for="title">
+        <b-form-group :label="`Title [${defaultLanguage.abbr}]`" label-for="title">
           <b-input-group>
             <input id="title"
                    v-model="form.name=service.name"
@@ -41,7 +41,7 @@
         </b-form-group>
       </b-col>
     </b-row>
-    <b-form-group label="Description" label-for="description">
+    <b-form-group :label="`Description [${defaultLanguage.abbr}]`" label-for="description">
       <b-input-group>
             <textarea id="description"
                       v-model="form.description=service.description"
@@ -56,7 +56,7 @@
     </div>
     <b-row>
       <b-col>
-        <b-form-group label="Video" label-for="video">
+        <b-form-group :label="`Video [${defaultLanguage.abbr}]`" label-for="video">
           <b-form-file :id="`inputImage${service.id}`" size="sm" ref="fileInput"
                        @change="handleVideoUpload"></b-form-file>
         </b-form-group>
@@ -99,6 +99,7 @@ export default {
   computed: {
     ...mapGetters({
       collections: 'collection/getCollections',
+      defaultLanguage: 'language/getDefaultLanguage',
     }),
   },
   data() {
@@ -131,6 +132,7 @@ export default {
         formData.append('video', this.video);
       }
       formData.append('expert_id', this.expertId);
+      formData.append('langId', this.defaultLanguage.id);
       Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));
 
       try {

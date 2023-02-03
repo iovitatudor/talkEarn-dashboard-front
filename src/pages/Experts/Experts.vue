@@ -75,7 +75,7 @@
                       <small>
                         <span class="fw-semi-bold">Profession:</span>
                         <span class="text-muted">
-                          {{expert.profession ? expert.profession : '---' }}
+                          {{ expert.profession ? expert.profession : '---' }}
                         </span>
                       </small>
                     </span>
@@ -118,19 +118,28 @@ export default {
   computed: {
     ...mapGetters({
       experts: 'experts/getExperts',
+      defaultLanguage: 'language/getDefaultLanguage',
     })
   },
-  async mounted() {
-    try {
-      await this.fetchExperts();
-    } catch (err) {
-      SetApiError(err);
+  watch: {
+    defaultLanguage() {
+      this.init();
     }
+  },
+  mounted() {
+    this.init();
   },
   methods: {
     ...mapActions({
       fetchExperts: 'experts/fetchExperts',
     }),
+    async init() {
+      try {
+        await this.fetchExperts();
+      } catch (err) {
+        SetApiError(err);
+      }
+    }
   }
 }
 </script>

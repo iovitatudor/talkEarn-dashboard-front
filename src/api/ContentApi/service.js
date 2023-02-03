@@ -1,12 +1,12 @@
 import { FormDataApiInstance } from '@/api';
 
 export const ServiceApi = {
-  getByExpert(expertId) {
-    const url = `/api/services/expert/${expertId}`;
+  getByExpert(expertId, languageAbbr) {
+    const url = `/api/services/expert/${expertId}?lang=${languageAbbr}`;
     return FormDataApiInstance.get(url);
   },
-  getById(id) {
-    const url = `/api/service/${id}`;
+  getById(id, languageAbbr) {
+    const url = `/api/service/${id}?lang=${languageAbbr}`;
     return FormDataApiInstance.get(url);
   },
   create(data) {

@@ -24,11 +24,15 @@ export default {
   },
 
   actions: {
-    getServicesByExpert({commit}, id) {
-      return ServiceApi.getByExpert(id);
+    getServicesByExpert({commit, rootGetters}, id) {
+      const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+      const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
+      return ServiceApi.getByExpert(id, languageAbbr);
     },
-    getServiceById({commit}, id) {
-      return ServiceApi.getById(id);
+    getServiceById({commit, rootGetters}, id) {
+      const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+      const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
+      return ServiceApi.getById(id, languageAbbr);
     },
     saveService({commit}, data) {
       return ServiceApi.create(data);

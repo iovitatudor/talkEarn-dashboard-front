@@ -32,13 +32,17 @@ export default {
       commit('addExpert', result.data);
       return result.data;
     },
-    fetchExperts({commit}) {
-      return ExpertApi.getAll().then((res) => {
+    fetchExperts({commit, rootGetters}) {
+      const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+      const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
+      return ExpertApi.getAll(languageAbbr).then((res) => {
         commit('setExperts', res.data.data);
       });
     },
-    getExpertById({commit}, id) {
-      return ExpertApi.getById(id);
+    getExpertById({commit, rootGetters}, id) {
+      const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+      const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
+      return ExpertApi.getById(id, languageAbbr);
     },
     async editExpert({commit, rootGetters}, data) {
       const result = await ExpertApi.edit(data.id, data.data);

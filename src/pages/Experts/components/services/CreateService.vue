@@ -27,7 +27,7 @@
                 </b-form-group>
               </b-col>
               <b-col>
-                <b-form-group label="Title" label-for="title">
+                <b-form-group :label="`Title [${defaultLanguage.abbr}]`" label-for="title">
                   <b-input-group>
                     <input id="title"
                            v-model="form.name"
@@ -51,7 +51,7 @@
                 </b-form-group>
               </b-col>
             </b-row>
-            <b-form-group label="Description" label-for="description">
+            <b-form-group :label="`Description [${defaultLanguage.abbr}]`" label-for="description">
               <b-input-group>
             <textarea id="description"
                       v-model="form.description"
@@ -63,7 +63,7 @@
             </b-form-group>
             <b-row>
               <b-col>
-                <b-form-group label="Video" label-for="video">
+                <b-form-group :label="`Video [${defaultLanguage.abbr}]`" label-for="video">
                   <b-row>
                     <b-col class="flex-center" md="12">
                       <b-form-file id="inputVideo" size="sm" ref="inputVideo" @change="handleVideoUpload"></b-form-file>
@@ -128,6 +128,7 @@ export default {
   computed: {
     ...mapGetters({
       collections: 'collection/getCollections',
+      defaultLanguage: 'language/getDefaultLanguage',
     }),
   },
   mounted() {
@@ -147,6 +148,7 @@ export default {
         formData.append('video', this.video);
       }
       formData.append('expert_id', this.expertId);
+      formData.append('lang_id', this.defaultLanguage.id);
       Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));
       formData.append('collection_id', this.form.collectionId);
 
