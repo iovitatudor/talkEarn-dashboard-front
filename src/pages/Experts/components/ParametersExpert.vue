@@ -6,7 +6,7 @@
           <h5>Expert Parameters</h5>
         </b-col>
       </b-row>
-      <form class="mt" @submit.prevent="save">
+      <form class="mt" @submit.prevent="save" v-if="parameters.length">
         <b-form-group :label="`${parameter.name} [${defaultLanguage.abbr}]`" :label-for="`${parameter.name}-input`"
                       v-for="(parameter, key) in parameters" :key="key">
           <b-input-group>

@@ -3,7 +3,34 @@
 .app-header.navbar {
   z-index: 100;
   padding: 0 1.85rem 0;
-  border-bottom: 1px solid #2A414F;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: $violet;
+  box-shadow: $widget-shadow;
+
+  .logo {
+    margin: 15px 0;
+    font-weight: $font-weight-normal;
+    text-transform: uppercase;
+    text-align: left;
+    transition: width $sidebar-transition-time ease-in-out;
+
+    a {
+      padding: 0 5px;
+      text-decoration: none;
+      white-space: nowrap;
+      font-weight: 600;
+      font-size: 22px;
+      color: #FFF;
+
+      img {
+        max-width: 80%;
+        height: 45px;
+      }
+    }
+  }
 
   @include media-breakpoint-down(md) {
     padding: 0 10px;

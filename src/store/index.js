@@ -18,6 +18,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   modules: {
     layout,
+    language,
     auth,
     alert,
     categories,
@@ -27,6 +28,5 @@ export default new Vuex.Store({
     calls,
     client,
     collection,
-    language,
   },
 });

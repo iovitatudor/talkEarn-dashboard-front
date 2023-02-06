@@ -30,10 +30,16 @@
                   <b-form-file id="inputIcon" size="sm" ref="fileInput" @change="handleIconUpload"></b-form-file>
                 </b-col>
                 <b-col>
-                  <img class="rounded-circle" :src="`${language.icon}`" width="100px" height="100"
+                  <img class="rounded-circle"
+                       :src="`${language.icon}`"
+                       @error="language.icon = null"
+                       width="100px"
+                       height="100"
                        v-if="language.icon"/>
-                  <img class="rounded-circle" src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-4.png"
-                       alt="" height="100" v-else/>
+                  <img class="rounded-circle"
+                       src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-4.png"
+                       height="100"
+                       v-else/>
                 </b-col>
               </b-row>
             </b-form-group>

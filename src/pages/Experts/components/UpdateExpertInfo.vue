@@ -85,11 +85,15 @@
             </b-col>
             <b-col md="3">
               <img class="rounded-circle"
-                   :src="`${expert.avatar}`" width="100px"
+                   :src="`${expert.avatar}`"
+                   @error="expert.avatar = null"
+                   width="100px"
                    height="100"
                    v-if="expert.avatar"/>
-              <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
-                   alt="" height="100" v-else/>
+              <img class="rounded-circle"
+                   src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
+                   height="100"
+                   v-else/>
             </b-col>
             <b-col class="flex-center" md="6">
               <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1"

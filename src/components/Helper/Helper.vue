@@ -13,22 +13,22 @@
       <div class="widget-body mt-3">
 
         <div class="mt-4">
-          <NavLink
+          <a
             v-if="!authExpert.available"
             @click="toggleExpertStatus"
             target="_blank"
             role="button"
             class="btn btn-warning btn-rounded-f btn-block fs-mini text-white">
             Set Online
-          </NavLink>
-          <NavLink
+          </a>
+          <a
             v-if="authExpert.available"
             @click="toggleExpertStatus"
             target="_blank"
             role="button"
             class="btn btn-success btn-rounded-f btn-block fs-mini text-white">
             Set Offline
-          </NavLink>
+          </a>
 
           <div class="mt-4 text-center" v-if="project">
             <p><b>Project token:</b></p>

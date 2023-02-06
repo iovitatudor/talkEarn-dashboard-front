@@ -104,7 +104,6 @@
         <Widget
           title="<h6>Calendar</h6" bodyClass="p-0"
           settings close customHeader>
-          <Calendar/>
           <div class="list-group fs-mini">
             <a href="#" class="list-group-item text-ellipsis">
               <span class="badge badge-pill bg-primary float-right">6:45</span>
@@ -149,15 +148,13 @@
 import {mapGetters} from "vuex";
 import Vue from 'vue';
 import Widget from '@/components/Widget/Widget';
-import Map from './components/Map/Map';
-import Calendar from './components/Calendar/Calendar';
 import AreaChart from './components/AreaChart/AreaChart';
 import AnimatedNumber from "animated-number-vue";
 
 export default {
   name: 'Visits',
   components: {
-    Widget, Map, Calendar, AreaChart, AnimatedNumber
+    Widget, AreaChart, AnimatedNumber
   },
   computed: {
     ...mapGetters({

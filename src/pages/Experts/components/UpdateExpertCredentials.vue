@@ -49,7 +49,7 @@
 
 <script>
 
-import {mapActions} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 import Widget from "../../../components/Widget/Widget";
 import {SetApiError} from "../../../api/errors";
 
@@ -68,6 +68,11 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapGetters({
+      defaultLanguage: 'language/getDefaultLanguage',
+    })
+  },
   methods: {
     ...mapActions({
       editExpert: 'experts/editExpert',
@@ -81,6 +86,7 @@ export default {
       try {
         const formData = new FormData();
         formData.append('name', this.expert.name);
+        formData.append('langId', this.defaultLanguage.id);
         Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));
         const res = await this.editExpert({id: this.expert.id, data: formData});
         this.form.password = null;

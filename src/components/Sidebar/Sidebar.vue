@@ -3,12 +3,12 @@
     <nav
       :class="{sidebar: true}"
     >
-      <header class="logo">
-        <router-link to="/dashboard">
-          <b-icon icon="disc"></b-icon>
-          {{ project.name }}
-        </router-link>
-      </header>
+<!--      <header class="logo">-->
+<!--        <router-link to="/dashboard">-->
+<!--          <b-icon icon="disc"></b-icon>-->
+<!--          {{ project.name }}-->
+<!--        </router-link>-->
+<!--      </header>-->
       <ul class="nav">
         <NavLink
           :activeItem="activeItem"

@@ -9,7 +9,7 @@
     <b-modal v-model="modalShow" title="Create new service" hide-footer>
       <div class="pb-16">
         <Widget customHeader>
-          <form class="mt" @submit.prevent="save">
+          <form class="mt" @submit.prevent="save" v-if="collections.length">
             <b-row>
               <b-col md="12">
                 <b-form-group label="Collection" label-for="collection">
@@ -93,6 +93,14 @@
               </b-button>
             </div>
           </form>
+          <div class="text-center" v-else>
+            You haven't added any collection yet, add one before creating a service.<br> <br>
+            <p>
+              <router-link to="/dashboard/collections">
+                Add a collection
+              </router-link>
+            </p>
+          </div>
         </Widget>
       </div>
       <br>

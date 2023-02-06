@@ -1,7 +1,7 @@
 <template>
   <div>
     <Widget customHeader>
-      <form class="mt" @submit.prevent="saveForm">
+      <form class="mt" @submit.prevent="saveForm" v-if="categories.length">
         <b-form-group label="Category" label-for="category">
           <b-input-group>
             <select id="category"
@@ -45,9 +45,10 @@
         <b-row>
           <b-col><br>
             <b-button type="button" variant="default" size="sm" block @click="hideDescription = !hideDescription">
-              Description [{{defaultLanguage.abbr}}]
+              Description [{{ defaultLanguage.abbr }}]
             </b-button>
-            <b-form-group :label="`Description [${defaultLanguage.abbr}]`"  label-for="description" v-if="!hideDescription">
+            <b-form-group :label="`Description [${defaultLanguage.abbr}]`" label-for="description"
+                          v-if="!hideDescription">
               <ckeditor :config="editorConfig"></ckeditor>
             </b-form-group>
             <br>
@@ -196,6 +197,14 @@
           </b-row>
         </div>
       </form>
+      <div class="text-center" v-else>
+        You haven't added any categories yet, add one before creating an expert.<br> <br>
+        <p>
+          <router-link to="/dashboard/categories">
+            Add a category
+          </router-link>
+        </p>
+      </div>
     </Widget>
   </div>
 </template>

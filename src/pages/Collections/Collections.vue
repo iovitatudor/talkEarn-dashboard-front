@@ -38,11 +38,16 @@
                 <td>
                   <router-link :to="`/dashboard/collections/edit/${collection.id}`">
                     <img class="rounded-circle"
-                         :src="`${collection.image}`" width="50px"
+                         :src="`${collection.image}`"
+                         @error="collection.image = null"
+                         width="50px"
                          height="50"
                          v-if="collection.image"/>
-                    <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
-                         width="50px" height="50" v-else/>
+                    <img class="rounded-circle"
+                         src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-4.png"
+                         width="50px"
+                         height="50"
+                         v-else/>
                   </router-link>
                 </td>
                 <td>

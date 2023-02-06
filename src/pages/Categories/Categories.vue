@@ -38,11 +38,16 @@
                 <td>
                   <router-link :to="`/dashboard/categories/edit/${category.id}`">
                     <img class="rounded-circle"
-                         :src="`${category.icon}`" width="50px"
+                         :src="`${category.icon}`"
+                         @error="category.icon = null"
+                         width="50px"
                          height="50"
                          v-if="category.icon"/>
-                    <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
-                         width="50px" height="50" v-else/>
+                    <img class="rounded-circle"
+                         src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-4.png"
+                         width="50px"
+                         height="50"
+                         v-else/>
                   </router-link>
                 </td>
                 <td>

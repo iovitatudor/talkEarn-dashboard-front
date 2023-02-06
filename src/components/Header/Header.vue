@@ -1,5 +1,11 @@
 <template>
   <b-navbar toggleable="md" class="app-header d-print-none">
+    <header class="logo">
+      <router-link to="/dashboard">
+        <b-icon icon="disc"></b-icon>
+        {{ project.name }}
+      </router-link>
+    </header>
     <b-navbar-nav class="navbar-nav-mobile ml-auto">
       <b-nav-form class="d-sm-down-none mr-3">
         <b-input-group class="input-group-transparent search-group">
@@ -16,6 +22,7 @@
               <img class="rounded-circle"
                    v-if="authExpert.avatar"
                    :src="`${authExpert.avatar}`"
+                   @error="authExpert.avatar = null"
                    alt="..."/>
               <img class="rounded-circle"
                    v-else
@@ -75,7 +82,11 @@ export default {
     }),
     ...mapGetters({
       authExpert: 'auth/getAuthExpert',
+      project: 'auth/getProject',
     }),
+  },
+  mounted() {
+    document.title = `${this.project.name} Dashboard`;
   },
   methods: {
     ...mapActions({
@@ -97,7 +108,6 @@ export default {
     logout() {
       this.onLogout();
       window.location.href = "/login";
-      // this.$router.push('/login');
     },
   },
 };

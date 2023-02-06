@@ -43,10 +43,14 @@
                 <td>
                   <router-link :to="`/dashboard/experts/edit/${expert.id}`">
                     <img class="rounded-circle"
-                         :src="`${expert.avatar}`" alt=""
-                         height="50" v-if="expert.avatar"/>
-                    <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
-                         alt="" height="50" v-else/>
+                         :src="`${expert.avatar}`"
+                         @error="expert.avatar = null"
+                         v-if="expert.avatar"
+                         height="50"/>
+                    <img class="rounded-circle"
+                         src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
+                         height="50"
+                         v-else/>
                   </router-link>
                 </td>
                 <td>

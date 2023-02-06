@@ -32,10 +32,12 @@ export default {
     setDefaultLanguage({commit}, language) {
       commit('setDefaultLanguage', language);
     },
-    getLanguages({commit}) {
+    getLanguages({commit, getters}) {
       return LanguageApi.getAll().then((res) => {
         commit('setLanguages', res.data);
-        commit('setDefaultLanguage', res.data[0]);
+        if (Object.keys(getters.getDefaultLanguage).length === 0) {
+          commit('setDefaultLanguage', res.data[0]);
+        }
       });
     },
     getLanguageById({commit}, id) {

@@ -17,8 +17,8 @@ export const ExpertApi = {
     const url = `/api/expert/${id}`;
     return FormDataApiInstance.patch(url, data);
   },
-  editVideo(id, data) {
-    const url = `/api/expert/video/${id}`;
+  editVideo(id, data, languageAbbr) {
+    const url = `/api/expert/video/${id}?lang=${languageAbbr}`;
     return FormDataApiInstance.patch(url, data);
   },
   remove(id) {

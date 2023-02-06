@@ -41,11 +41,15 @@
                   <router-link :to="`/dashboard/languages/edit/${language.id}`">
                     <img class="rounded-circle"
                          :src="`${language.icon}`"
+                         @error="language.icon = null"
                          width="30"
                          height="30"
                          v-if="language.icon"/>
-                    <img class="rounded-circle" src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-4.png"
-                         width="30px" height="30" v-else/>
+                    <img class="rounded-circle"
+                         src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-4.png"
+                         width="30px"
+                         height="30"
+                         v-else/>
                   </router-link>
                 </td>
                 <td>
@@ -67,14 +71,22 @@
                   </b-badge>
                 </td>
                 <td>
-                  <remove-language :id="language.id" v-if="!language.default"/>
-                  <span v-else>---</span>
+                  <div v-if="language.id !== defaultLanguage.id">
+                    <remove-language :id="language.id" v-if="!language.default"/>
+                    <span v-if="language.default">---</span>
+                  </div>
+                  <div v-else>* ---</div>
                 </td>
               </tr>
               </tbody>
             </table>
             <div class="text-center" v-else>
               There is no language yet.
+            </div>
+            <div v-if="defaultLanguage" class="text-center">
+              <small> <br>
+                * Current language can't be deleted
+              </small>
             </div>
           </div>
         </Widget>
@@ -97,6 +109,7 @@ export default {
   computed: {
     ...mapGetters({
       languages: 'language/getLanguages',
+      defaultLanguage: 'language/getDefaultLanguage',
     })
   },
   mounted() {

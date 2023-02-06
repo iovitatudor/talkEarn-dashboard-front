@@ -27,10 +27,16 @@
               <b-form-file id="inputIcon" size="sm" ref="fileInput" @change="handleIconUpload"></b-form-file>
             </b-col>
             <b-col>
-              <img class="rounded-circle" :src="`${category.icon}`" width="100px" height="100"
+              <img class="rounded-circle"
+                   :src="`${category.icon}`"
+                   @error="category.icon = null"
+                   width="100px"
+                   height="100"
                    v-if="category.icon"/>
-              <img class="rounded-circle" src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
-                   alt="" height="100" v-else/>
+              <img class="rounded-circle"
+                   src="https://www.freeiconspng.com/thumbs/no-image-icon/no-image-icon-4.png"
+                   height="100"
+                   v-else/>
             </b-col>
           </b-row>
 

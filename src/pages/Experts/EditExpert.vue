@@ -101,12 +101,16 @@ export default {
     ...mapActions({
       getExpertById: 'experts/getExpertById',
       getServicesByExpert: 'services/getServicesByExpert',
+      getCategories: 'categories/getCategories',
+      getCollections: 'collection/getCollections',
     }),
     async initData() {
       const id = parseInt(this.$route.params.id);
       try {
+        await this.getCategories();
         const res = await this.getExpertById(id);
         this.expert = res.data;
+        await this.getCollections();
       } catch (err) {
         SetApiError(err);
       }

@@ -54,7 +54,9 @@ export default {
       return result;
     },
     async editExpertVideo({commit, rootGetters}, data) {
-      const result = await ExpertApi.editVideo(data.id, data.data);
+      const defaultLanguage = rootGetters['language/getDefaultLanguage'];
+      const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
+      const result = await ExpertApi.editVideo(data.id, data.data, languageAbbr);
       return result;
     },
     destroyExpert({commit}, id) {

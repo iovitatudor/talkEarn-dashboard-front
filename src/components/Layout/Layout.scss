@@ -14,6 +14,7 @@
 .content {
   position: relative;
   flex-grow: 1;
+  margin-top: 30px;
   // 1rem for footer height
   padding: $content-padding $content-padding ($content-padding + 1rem);
 
