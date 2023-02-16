@@ -10,12 +10,16 @@ import layoutMixin from './mixins/layout';
 import VueSocketIO from "vue-socket.io";
 import {io} from "socket.io-client";
 import CKEditor from 'ckeditor4-vue';
+import VCalendar from 'v-calendar';
 
 // import {SetTokenToDefaultApiInstance} from './api';
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(Vuetify);
+Vue.use(VCalendar, {
+  // locales: {en-US},
+});
 
 Vue.mixin(layoutMixin);
 Vue.use(Toasted, {duration: 5000, position: 'top-center'});

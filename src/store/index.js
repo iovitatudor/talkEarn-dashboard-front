@@ -12,6 +12,7 @@ import services from './services';
 import calls from './call';
 import client from './client';
 import language from './language';
+import schedule from './schedule';
 
 Vue.use(Vuex);
 
@@ -28,5 +29,6 @@ export default new Vuex.Store({
     calls,
     client,
     collection,
+    schedule,
   },
 });
