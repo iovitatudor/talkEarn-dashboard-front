@@ -68,7 +68,7 @@
           </b-row>
           <b-row>
             <b-col md="12">
-              <b-form-group label="Consultation Duration (min):" label-for="consultationDuration">
+              <b-form-group label="Appointment Duration (min):" label-for="consultationDuration">
                 <b-input-group>
                   <input id="consultationDuration"
                          class="form-control input-transparent pl-3"
@@ -77,7 +77,7 @@
                          required/>
                 </b-input-group>
               </b-form-group>
-              <b-form-group label="Break between consultations (min):" label-for="breakBetweenConsultations">
+              <b-form-group label="Break between appointments (min):" label-for="breakBetweenConsultations">
                 <b-input-group>
                   <input id="breakBetweenConsultations"
                          class="form-control input-transparent pl-3"
@@ -88,7 +88,7 @@
               </b-form-group>
             </b-col>
             <b-col>
-              <b-form-group label="From:" label-for="from">
+              <b-form-group label="Start time:" label-for="from">
                 <b-input-group>
                   <input id="from"
                          class="form-control input-transparent pl-3"
@@ -101,7 +101,7 @@
               </b-form-group>
             </b-col>
             <b-col>
-              <b-form-group label="To:" label-for="to">
+              <b-form-group label="End time:" label-for="to">
                 <b-input-group>
                   <input id="to"
                          class="form-control input-transparent pl-3"

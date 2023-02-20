@@ -66,8 +66,8 @@
           isHeader
         />
         <NavLink
-          header="Calendar"
-          link="/dashboard/calendar"
+          header="Schedule"
+          link="/dashboard/schedule"
           iconName="calendar2-check-fill"
           index="users"
           isHeader

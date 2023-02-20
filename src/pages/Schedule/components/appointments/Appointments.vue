@@ -2,27 +2,21 @@
   <div class="appointments-wrapper">
     <b-row class="appointments-area">
       <b-col md="12" class="appointments-title text-center">
-        <h4>{{ schedule.date | moment("dddd, MMMM Do YYYY")  }}</h4>
+        <h4>{{ schedule.date | moment("dddd, MMMM Do YYYY") }}</h4>
       </b-col>
-      <b-col md="3" class="appointments-item"
-             v-for="(appointment, key) in appointments"
-             :key="key">
-        <div class="appointments-item-inside">
-          <p>
-            {{ appointment.time }} -
-            {{ $moment(appointment.time, 'HH.mm').add(appointment.duration, 'minutes') | moment("HH.mm") }}
-          </p>
-          <p> {{ appointment.duration }} min</p>
-        </div>
-      </b-col>
-
+      <book-appointment v-for="(appointment, key) in appointments"
+                        :key="key"
+                        :appointment="appointment"/>
     </b-row>
   </div>
 </template>
 
 <script>
+import BookAppointment from "./BookAppointment";
+
 export default {
   name: "Appointments",
+  components: {BookAppointment},
   props: {
     appointments: {type: Array},
     schedule: {type: Object},
@@ -30,7 +24,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 
 .appointments-wrapper {
   background-color: #FFF;
@@ -40,6 +34,7 @@ export default {
 
   .appointments-area {
     padding: 20px;
+
     .appointments-title {
       h4 {
         color: #000;

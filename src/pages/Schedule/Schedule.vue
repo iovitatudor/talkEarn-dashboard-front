@@ -2,14 +2,14 @@
   <div class="tables-basic">
     <b-breadcrumb>
       <b-breadcrumb-item to="/dashboard">Dashboard</b-breadcrumb-item>
-      <b-breadcrumb-item active>Calendar</b-breadcrumb-item>
+      <b-breadcrumb-item active>Schedule</b-breadcrumb-item>
     </b-breadcrumb>
 
     <b-row>
       <b-col>
         <b-row>
           <b-col>
-            <h2 class="page-title">Calendar</h2>
+            <h2 class="page-title">Schedule</h2>
           </b-col>
           <b-col class="text-right">
             <delete-schedule/>
@@ -48,7 +48,7 @@
 
 import {mapGetters, mapActions} from "vuex";
 import Widget from "../../components/Widget/Widget";
-import CalendarSettings from "./components/CalendarSettings";
+import CalendarSettings from "./components/ScheduleSettings";
 import DeleteSchedule from "./components/DeleteSchedule";
 import ScheduleTemplates from "./components/ScheduleTemplates";
 import Appointments from "./components/appointments/Appointments";

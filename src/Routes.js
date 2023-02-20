@@ -20,7 +20,7 @@ import EditExpert from './pages/Experts/EditExpert';
 import AssignedClients from './pages/Clients/AssignedClients';
 import NotAssignedClients from './pages/Clients/NotAssignedClients';
 import EditClient from './pages/Clients/EditClient';
-import Calendar from "./pages/Calendar/Calendar";
+import Schedule from "./pages/Schedule/Schedule";
 import Language from "./pages/Languages/Languages";
 import EditLanguage from './pages/Languages/EditLanguage';
 
@@ -126,9 +126,9 @@ export default new Router({
           component: EditClient,
         },
         {
-          path: 'calendar',
-          name: 'Calendar',
-          component: Calendar,
+          path: 'schedule',
+          name: 'Schedule',
+          component: Schedule,
         },
         {
           path: 'languages',

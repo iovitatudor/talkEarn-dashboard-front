@@ -28,6 +28,7 @@
                 <td>
                   <b-badge variant="success" v-if="scheduleTemplate.autoGenerate">Yes</b-badge>
                   <b-badge variant="warning" v-else>No</b-badge>
+
                 </td>
                 <td>
                   {{ scheduleTemplate.regenerateDate | moment("dddd, MMMM Do YYYY") }}
