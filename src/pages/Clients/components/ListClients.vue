@@ -4,11 +4,13 @@
       <thead>
       <tr>
         <th>#</th>
+        <th>Type</th>
         <th>Cookie</th>
         <th>Info</th>
 <!--        <th>Path</th>-->
         <th>Last Entry</th>
         <th>Status</th>
+        <th>Remote Log In</th>
         <th>Assign</th>
         <th>Delete</th>
       </tr>
@@ -17,6 +19,10 @@
       <tr v-for="(client, key) in clients" :key="key">
         <td>
           <b>{{ key + 1 }}</b>
+        </td>
+        <td>
+          <b-badge variant="success" v-if="client.email">Auth</b-badge>
+          <b-badge variant="warning" v-else>Guest</b-badge>
         </td>
         <td>
           <router-link :to="`/dashboard/clients/edit/${client.id}`">
@@ -52,6 +58,10 @@
           <b-badge variant="warning" v-else>{{ client.lastEntry | moment("from") }}</b-badge>
         </td>
         <td>
+          <remote-login :client="client" v-if="client.email"/>
+          <p v-else>---</p>
+        </td>
+        <td>
           <assign-client :client="client"/>
         </td>
         <td>
@@ -66,10 +76,11 @@
 <script>
 import RemoveClient from "./RemoveClient";
 import AssignClient from "./AssignClient";
+import RemoteLogin from "./RemoteLogin";
 
 export default {
   name: "ListClients",
-  components: {RemoveClient, AssignClient},
+  components: {RemoveClient, AssignClient, RemoteLogin},
   props: {
     clients: {type: Object}
   },

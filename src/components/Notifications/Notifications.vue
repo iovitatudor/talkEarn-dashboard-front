@@ -1,22 +1,20 @@
 <template>
   <section class="notifications navbar-notifications">
     <header class="header">
-      <h6 class="my-3 text-center">You have 13 notifications</h6>
+      <h6 class="my-3 text-center">You have {{ notifications.length }} notifications</h6>
     </header>
-    <NewNotifictionsList v-if="newNotifications" />
-    <NotifictionsList v-else-if="notificationsTabSelected === 1" />
-    <Messages v-else-if="notificationsTabSelected === 2" />
-    <Progress v-else-if="notificationsTabSelected === 3" />
-    <NotifictionsList v-else/>
+
+    <NotifictionsList/>
+
     <footer class="text-sm footer px-4 py-2">
-      <span class="fs-mini">Synced at: 21 Apr 2019 18:36</span>
+      <span class="fs-mini">Synced at: {{ new Date() | moment('DD MM YYYY, hh:mm:ss') }}</span>
       <b-button
         variant="link"
         @click="loadNotifications"
         :class="{disabled: isLoad, 'btn-xs float-right py-0': true}"
       >
-        <span v-if="isLoad"><i class="la la-refresh la-spin" /> Loading...</span>
-        <i v-else class="la la-refresh" />
+        <span v-if="isLoad"><i class="la la-refresh la-spin"/> Loading...</span>
+        <i v-else class="la la-refresh"/>
       </b-button>
     </footer>
   </section>
@@ -24,7 +22,7 @@
 
 <script>
 import Vue from 'vue';
-
+import {mapGetters, mapActions} from 'vuex';
 import NotifictionsList from './NotificationsDemo/NotificationsList';
 import NewNotifictionsList from './NotificationsDemo/NewNotificationsList';
 import Messages from './NotificationsDemo/Messages';
@@ -42,17 +40,30 @@ export default {
       isLoad: false,
     };
   },
+  computed: {
+    ...mapGetters({
+      notifications: 'notification/getNotifications',
+      authExpert: 'auth/getAuthExpert',
+    })
+  },
+  async mounted() {
+    await this.getNotifications(this.authExpert.id);
+  },
   methods: {
-    loadNotifications() {
+    ...mapActions({
+      getNotifications: 'notification/getAllNotifications',
+    }),
+    async loadNotifications() {
       Vue.set(this, 'isLoad', true);
 
-      setTimeout(() => {
+      setTimeout(async () => {
         Vue.set(this, 'newNotifications', 'new notifications component');
         Vue.set(this, 'isLoad', false);
+        await this.getNotifications(this.authExpert.id);
       }, 1500);
     },
   },
 };
 </script>
 
-<style src="./Notifications.scss" lang="scss" />
+<style src="./Notifications.scss" lang="scss"/>

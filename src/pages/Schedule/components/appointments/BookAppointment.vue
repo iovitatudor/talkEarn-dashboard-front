@@ -56,6 +56,14 @@
           {{ appointmentInfo.time }} -
           {{ $moment(appointmentInfo.time, 'HH.mm').add(appointmentInfo.duration, 'minutes') | moment("HH.mm") }}
         </h5>
+
+        <h5 v-if="appointment.appointmentReservation"
+            class="text-center">
+          <a :href="`https://instantexpert.online/ro/conference/${appointment.appointmentReservation.room.token}`"
+             target="_blank">
+            https://instantexpert.online/ro/conference/{{ appointment.appointmentReservation.room.token }}
+          </a>
+        </h5>
         <hr>
         <form class="mt" @submit.prevent="book">
           <b-row class="days-list">

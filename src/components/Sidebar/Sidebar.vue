@@ -28,6 +28,13 @@
           isHeader
         />
         <NavLink
+          header="My Experts"
+          link="/dashboard/my-experts"
+          iconName="person-circle"
+          index="experts"
+          isHeader
+        />
+        <NavLink
           v-if="authExpert.type === 'Administrator'"
           header="Categories"
           link="/dashboard/categories"
@@ -73,6 +80,7 @@
           isHeader
         />
         <NavLink
+          v-if="authExpert.type === 'Administrator'"
           header="Languages"
           link="/dashboard/languages"
           iconName="globe"

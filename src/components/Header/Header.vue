@@ -38,7 +38,10 @@
         </b-dropdown-item>
         <b-dropdown-divider/>
         <b-dropdown-item>
-          Calendar &nbsp;&nbsp;<b-badge variant="danger" pill class="animate__animated animate__bounceIn">9</b-badge>
+          <router-link to="/dashboard/schedule" class="white-link">
+            Schedule
+          </router-link>
+          <!--          &nbsp;&nbsp;<b-badge variant="danger" pill class="animate__animated animate__bounceIn">9</b-badge>-->
         </b-dropdown-item>
         <b-dropdown-divider/>
         <b-dropdown-item-button @click="logout">
@@ -49,6 +52,9 @@
       <b-nav-item-dropdown no-caret right class="mr-2" menu-class="dropdown-menu-settings">
         <template slot="button-content">
           <i class="fi flaticon-bell px-2"/>
+          &nbsp;&nbsp;<b-badge variant="danger" pill class="animate__animated animate__bounceIn">
+          {{ notifications.length }}
+        </b-badge>
         </template>
         <notifications/>
       </b-nav-item-dropdown>
@@ -83,6 +89,7 @@ export default {
     ...mapGetters({
       authExpert: 'auth/getAuthExpert',
       project: 'auth/getProject',
+      notifications: 'notification/getNotifications',
     }),
   },
   mounted() {

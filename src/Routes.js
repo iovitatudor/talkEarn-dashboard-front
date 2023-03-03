@@ -23,6 +23,7 @@ import EditClient from './pages/Clients/EditClient';
 import Schedule from "./pages/Schedule/Schedule";
 import Language from "./pages/Languages/Languages";
 import EditLanguage from './pages/Languages/EditLanguage';
+import MyExperts from "./pages/MyExperts/MyExperts";
 
 Vue.use(Router);
 
@@ -139,6 +140,11 @@ export default new Router({
           path: 'languages/edit/:id',
           name: 'EditLanguage',
           component: EditLanguage,
+        },
+        {
+          path: 'my-experts',
+          name: 'MyExperts',
+          component: MyExperts,
         },
       ],
     },
