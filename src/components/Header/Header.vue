@@ -52,9 +52,10 @@
       <b-nav-item-dropdown no-caret right class="mr-2" menu-class="dropdown-menu-settings">
         <template slot="button-content">
           <i class="fi flaticon-bell px-2"/>
-          &nbsp;&nbsp;<b-badge variant="danger" pill class="animate__animated animate__bounceIn">
-          {{ notifications.length }}
-        </b-badge>
+          &nbsp;&nbsp;
+          <b-badge variant="danger" pill class="animate__animated animate__bounceIn" v-if="notifications.length">
+            {{ notifications.length }}
+          </b-badge>
         </template>
         <notifications/>
       </b-nav-item-dropdown>

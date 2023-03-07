@@ -5,6 +5,14 @@ export const ExpertApi = {
     const url = `/api/experts?lang=${languageAbbr}`;
     return FormDataApiInstance.get(url);
   },
+  getExpertSupervisee(languageAbbr, expertId) {
+    const url = `/api/experts/supervisee/${expertId}?lang=${languageAbbr}`;
+    return FormDataApiInstance.get(url);
+  },
+  getExpertSupervisors(languageAbbr, expertId) {
+    const url = `/api/experts/supervisors/${expertId}?lang=${languageAbbr}`;
+    return FormDataApiInstance.get(url);
+  },
   getById(id, languageAbbr) {
     const url = `/api/expert/${id}?lang=${languageAbbr}`;
     return FormDataApiInstance.get(url);

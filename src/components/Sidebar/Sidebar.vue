@@ -28,9 +28,26 @@
           isHeader
         />
         <NavLink
+          v-if="authExpert.type !== 'Administrator'"
           header="My Experts"
           link="/dashboard/my-experts"
           iconName="person-circle"
+          index="experts"
+          isHeader
+        />
+        <NavLink
+          v-if="authExpert.type !== 'Administrator'"
+          header="My Supervisors"
+          link="/dashboard/my-supervisors"
+          iconName="person-plus-fill"
+          index="experts"
+          isHeader
+        />
+        <NavLink
+          v-if="authExpert.type !== 'Administrator'"
+          header="My Supervisee"
+          link="/dashboard/my-supervisee"
+          iconName="person-plus"
           index="experts"
           isHeader
         />

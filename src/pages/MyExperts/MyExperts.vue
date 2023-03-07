@@ -31,7 +31,7 @@
               </tr>
               </thead>
               <tbody>
-              <tr v-for="(expert, key) in experts" :key="key" v-if="expert.type !== 'Administrator'">
+              <tr v-for="(expert, key) in experts" :key="key" v-if="expert.id !== authExpert.id">
                 <td>
                   <b>{{ key + 1 }}</b>
                 </td>
@@ -75,7 +75,15 @@
                   </b-button>
                 </td>
                 <td>
-                  <b-button size="md" variant="primary" @click="assignAsSupervisee(expert.id)">
+                  <b-button size="md" variant="primary"
+                            @click="assignAsSupervisee(expert.id)"
+                            v-if="expert.supervisorId === 0">
+                    <i class="la la-hands-helping" style="font-size: 28px;"/>
+                  </b-button>
+                  <b-button size="md"
+                            variant="warning"
+                            v-b-tooltip.hover title="This expert already has a supervisor."
+                            v-else>
                     <i class="la la-hands-helping" style="font-size: 28px;"/>
                   </b-button>
                 </td>
@@ -152,7 +160,6 @@ export default {
       }
     },
     async assignAsSupervisee(expertId) {
-      console.log(this.authExpertData);
       const data = {
         supervisorId: this.authExpert.id,
         superviseeId: expertId,

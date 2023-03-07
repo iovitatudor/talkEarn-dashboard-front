@@ -21,6 +21,7 @@
 </template>
 
 <script>
+
 import Vue from 'vue';
 import {mapGetters, mapActions} from 'vuex';
 import NotifictionsList from './NotificationsDemo/NotificationsList';

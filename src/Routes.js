@@ -24,6 +24,8 @@ import Schedule from "./pages/Schedule/Schedule";
 import Language from "./pages/Languages/Languages";
 import EditLanguage from './pages/Languages/EditLanguage';
 import MyExperts from "./pages/MyExperts/MyExperts";
+import MySupervisors from "./pages/MySupervisors/MySupervisors";
+import MySupervisee from "./pages/MySupervisee/MySupervisee";
 
 Vue.use(Router);
 
@@ -145,6 +147,16 @@ export default new Router({
           path: 'my-experts',
           name: 'MyExperts',
           component: MyExperts,
+        },
+        {
+          path: 'my-supervisors',
+          name: 'MySupervisors',
+          component: MySupervisors,
+        },
+        {
+          path: 'my-supervisee',
+          name: 'MySupervisee',
+          component: MySupervisee,
         },
       ],
     },

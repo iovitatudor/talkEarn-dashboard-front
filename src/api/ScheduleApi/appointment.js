@@ -5,6 +5,10 @@ export const AppointmentApi = {
     const url = `/api/appointments/${expertId}/${date}`;
     return DefaultApiInstance.get(url);
   },
+  getOpenedMatchedAppointments(authExpertId, expertId, date) {
+    const url = `/api/appointments/matched/${authExpertId}/${expertId}/${date}?status=opened`;
+    return DefaultApiInstance.get(url);
+  },
   bookAppointment(data) {
     const url = `/api/appointment/book`;
     return DefaultApiInstance.post(url, data);

@@ -1,12 +1,12 @@
 <template>
-  <b-col md="3" class="appointments-item">
+  <b-col md="auto" class="appointments-item">
     <div class="appointments-item-inside" @click="showModal()">
       <p>
         {{ appointmentInfo.time }} -
         {{ $moment(appointmentInfo.time, 'HH.mm').add(appointmentInfo.duration, 'minutes') | moment("HH.mm") }}
       </p>
       <p> {{ appointment.duration }} min</p>
-      <b-row>
+      <b-row v-if="expert.id === authExpert.id">
         <b-col md="6">
           <b-badge pill variant="success" v-if="appointmentInfo.status === 'reserved'">
             {{ appointmentInfo.status }}
@@ -65,7 +65,10 @@
           </a>
         </h5>
         <hr>
-        <form class="mt" @submit.prevent="book">
+        <div class="loader-wrapper_" v-if="loaderShow">
+          <span class="loader"></span>
+        </div>
+        <form class="mt" @submit.prevent="book" v-else>
           <b-row class="days-list">
             <b-col md="12">
               <b-form-group label="Full Name*" label-for="name">
@@ -101,7 +104,9 @@
                           class="form-control input-transparent pl-3"
                           v-model="form.language"
                           required>
-                    <option :value="language.abbr" v-for="language in languages">{{ language.name }}</option>
+                    <option :value="language.abbr" v-for="(language, key) in languages" :key="key">
+                      {{ language.name }}
+                    </option>
                   </select>
                 </b-input-group>
               </b-form-group>
@@ -133,9 +138,11 @@ export default {
   components: {Widget},
   props: {
     appointment: {type: Object},
+    expert: {type: Object},
   },
   data() {
     return {
+      loaderShow: false,
       modalShow: false,
       modalChangeStatus: false,
       appointmentInfo: {},
@@ -151,6 +158,7 @@ export default {
   computed: {
     ...mapGetters({
       languages: 'language/getLanguages',
+      authExpert: 'auth/getAuthExpert',
     })
   },
   mounted() {
@@ -196,6 +204,7 @@ export default {
       }
     },
     async book() {
+      this.loaderShow = true;
       try {
         const data = {
           appointmentId: this.appointment.id,
@@ -214,9 +223,12 @@ export default {
           this.appointmentInfo = result.data;
         }
 
+        this.loaderShow = false;
         this.modalShow = false;
+        this.$bus.emit('refreshAppointments', {date: this.appointment.schedule.date});
         this.onSuccess('The reservation has been created successfully');
       } catch (e) {
+        this.loaderShow = false;
         SetApiError(e);
       }
     }
@@ -225,5 +237,53 @@ export default {
 </script>
 
 <style scoped>
+.loader-wrapper_ {
+  display: flex;
+  justify-content: center;
+  min-height: 100px;
+}
+
+.loader, .loader:before, .loader:after {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  animation-fill-mode: both;
+  animation: bblFadInOut 1.8s infinite ease-in-out;
+}
+
+.loader {
+  color: #FFF;
+  font-size: 7px;
+  position: relative;
+  text-indent: -9999em;
+  transform: translateZ(0);
+  animation-delay: -0.16s;
+}
+
+.loader:before,
+.loader:after {
+  content: '';
+  position: absolute;
+  top: 0;
+}
+
+.loader:before {
+  left: -3.5em;
+  animation-delay: -0.32s;
+}
+
+.loader:after {
+  left: 3.5em;
+}
+
+@keyframes bblFadInOut {
+  0%, 80%, 100% {
+    box-shadow: 0 2.5em 0 -1.3em
+  }
+  40% {
+    box-shadow: 0 2.5em 0 0
+  }
+}
+
 
 </style>

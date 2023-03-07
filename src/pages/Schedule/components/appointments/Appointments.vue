@@ -2,11 +2,18 @@
   <div class="appointments-wrapper">
     <b-row class="appointments-area">
       <b-col md="12" class="appointments-title text-center">
-        <h4>{{ schedule.date | moment("dddd, MMMM Do YYYY") }}</h4>
+        <h4>
+          <b>{{ expert.name }}</b>
+          {{ schedule.date | moment("dddd, MMMM Do YYYY") }}
+        </h4>
       </b-col>
-      <book-appointment v-for="(appointment, key) in appointments"
-                        :key="key"
-                        :appointment="appointment"/>
+      <b-row class="align-items-center justify-content-center">
+        <book-appointment
+          v-for="(appointment, key) in appointments"
+          :key="key"
+          :appointment="appointment"
+          :expert="expert"/>
+      </b-row>
     </b-row>
   </div>
 </template>
@@ -20,6 +27,7 @@ export default {
   props: {
     appointments: {type: Array},
     schedule: {type: Object},
+    expert: {type: Object},
   }
 }
 </script>

@@ -11,12 +11,14 @@ import VueSocketIO from "vue-socket.io";
 import {io} from "socket.io-client";
 import CKEditor from 'ckeditor4-vue';
 import VCalendar from 'v-calendar';
+import VueBus from 'vue-bus';
 
 // import {SetTokenToDefaultApiInstance} from './api';
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
 Vue.use(Vuetify);
+Vue.use(VueBus);
 Vue.use(VCalendar, {
   // locales: {en-US},
 });

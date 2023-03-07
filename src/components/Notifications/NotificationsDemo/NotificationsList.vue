@@ -1,107 +1,88 @@
 <template>
   <b-list-group class="listGroup thin-scroll">
-    <!--    <b-list-group-item class="listGroupItem">-->
-    <!--      <span class="notificationIcon thumb-sm">-->
-    <!--        <img class="rounded-circle" src="../../../assets/people/a3.jpg" alt="..." />-->
-    <!--      </span>-->
-    <!--      <p class="m-0 overflow-hidden">-->
-    <!--        1 new user just signed up! Check out-->
-    <!--        &nbsp;<a href="#">Monica Smith</a>'s account.-->
-    <!--        <time class="help-block m-0">-->
-    <!--          2 mins ago-->
-    <!--        </time>-->
-    <!--      </p>-->
-    <!--    </b-list-group-item>-->
-    <!--    <b-list-group-item class="listGroupItem">-->
-    <!--      <span class="notificationIcon thumb-sm">-->
-    <!--        <i class="fa fa-angle-double-up fa-2x" />-->
-    <!--      </span>-->
-    <!--      <p class="text-ellipsis m-0">-->
-    <!--        2.1.0-pre-alpha just released.-->
-    <!--        <time class="help-block m-0">-->
-    <!--          5h ago-->
-    <!--        </time>-->
-    <!--      </p>-->
-    <!--    </b-list-group-item>-->
-    <!--    <b-list-group-item class="listGroupItem">-->
-    <!--      <span class="notificationIcon thumb-sm">-->
-    <!--        <i class="fa fa-bolt fa-lg" />-->
-    <!--      </span>-->
-    <!--      <p class="text-ellipsis m-0 overflow-hidden">-->
-    <!--        Server load limited.-->
-    <!--        <time class="help-block m-0">-->
-    <!--          7h ago-->
-    <!--        </time>-->
-    <!--      </p>-->
-    <!--    </b-list-group-item>-->
-    <b-list-group-item class="listGroupItem">
-      <b-row align-v="center" v-for="(notification, key) in notifications" :key="key">
+    <b-list-group-item class="listGroupItem" v-for="(notification, key) in notifications" :key="key">
+      <b-row align-v="center">
         <b-col cols="2">
            <span class="notificationIcon thumb-sm">
-            <img class="rounded-circle" src="../../../assets/people/a5.jpg" alt="..."/>
+             <img class="rounded-circle"
+                  :src="`${getNotificationSenderImage(notification)}`"
+                  v-if="getNotificationSenderImage(notification)"
+                  height="50"/>
+             <img class="rounded-circle"
+                  src="https://hope.be/wp-content/uploads/2015/05/no-user-image.gif"
+                  height="50"
+                  v-else/>
           </span>
         </b-col>
         <b-col>
           <div class="m-0 overflow-hidden">
-            <small>{{ notification.message }}</small>
-            <p class="text-left"><br>
-              <b-button size="xs" variant="success" class="mr-1">Allow</b-button>
-              <b-button size="xs" variant="danger">Deny</b-button>
-            </p>
+            <small>{{ notification.message }}</small><br><br>
+            <b-row class="text-left">
+              <b-col>
+                <b-button size="xs"
+                          block
+                          variant="success"
+                          @click="allowRequest(notification.id)">
+                  Allow</b-button>
+              </b-col>
+              <b-col>
+                <b-button size="xs"
+                          block
+                          variant="danger"
+                          @click="denyRequest(notification.id)">
+                  Deny</b-button>
+              </b-col>
+            </b-row>
           </div>
         </b-col>
       </b-row>
     </b-list-group-item>
-    <!--    <b-list-group-item class="listGroupItem">-->
-    <!--      <span class="notificationIcon thumb-sm">-->
-    <!--        <i class="fa fa-shield fa-lg" />-->
-    <!--      </span>-->
-    <!--      <p class="m-0 overflow-hidden">-->
-    <!--        Instructions for changing your Envato Account password. Please-->
-    <!--        check your account <a href="#">security page</a>.-->
-    <!--        <time class="help-block m-0">-->
-    <!--          12:18 AM-->
-    <!--        </time>-->
-    <!--      </p>-->
-    <!--    </b-list-group-item>-->
-    <!--    <b-list-group-item class="listGroupItem">-->
-    <!--      <span class="notificationIcon thumb-sm">-->
-    <!--        <span class="rounded bg-primary rounded-lg">-->
-    <!--          <i class="fa fa-facebook text-white" />-->
-    <!--        </span>-->
-    <!--      </span>-->
-    <!--      <p class="text-ellipsis m-0">-->
-    <!--        New <strong>76</strong> facebook likes received.-->
-    <!--        <time class="help-block m-0">-->
-    <!--          15 Apr 2014-->
-    <!--        </time>-->
-    <!--      </p>-->
-    <!--    </b-list-group-item>-->
-    <!--    <b-list-group-item class="listGroupItem">-->
-    <!--      <span class="notificationIcon thumb-sm">-->
-    <!--        <span class="circle circle-lg bg-gray-dark">-->
-    <!--          <i class="fa fa-circle-o text-white" />-->
-    <!--        </span>-->
-    <!--      </span>-->
-    <!--      <p class="text-ellipsis m-0">-->
-    <!--        Dark matter detected.-->
-    <!--        <time class="help-block m-0">-->
-    <!--          15 Apr 2014-->
-    <!--        </time>-->
-    <!--      </p>-->
-    <!--    </b-list-group-item>-->
   </b-list-group>
 </template>
 
 <script>
-import {mapGetters} from "vuex";
+
+import {mapGetters, mapActions} from 'vuex';
+import {SetApiError} from "../../../api/errors";
 
 export default {
   name: 'NotificationsList',
+  data() {
+    return {};
+  },
   computed: {
     ...mapGetters({
       notifications: 'notification/getNotifications',
     })
+  },
+  methods: {
+    ...mapActions({
+      allowSupervisorRequest: 'notification/allowSupervisorRequest',
+      denySupervisorRequest: 'notification/denySupervisorRequest',
+      onSuccess: 'alert/onSuccess',
+    }),
+    getNotificationSenderImage(notification) {
+      if (notification.requestedId !== notification.supervisor.id) {
+        return notification.supervisor.avatar;
+      }
+      return notification.supervisee.avatar;
+    },
+    async allowRequest(notificationId) {
+      try {
+        await this.allowSupervisorRequest(notificationId);
+        this.onSuccess('The request was successfully accepted!');
+      } catch (err) {
+        SetApiError(err);
+      }
+    },
+    async denyRequest(notificationId) {
+      try {
+        await this.denySupervisorRequest(notificationId);
+        this.onSuccess('The request was successfully denied!');
+      } catch (err) {
+        SetApiError(err);
+      }
+    },
   }
 };
 </script>

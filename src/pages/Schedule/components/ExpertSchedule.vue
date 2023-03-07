@@ -1,26 +1,8 @@
 <template>
-  <div class="tables-basic">
-    <b-breadcrumb>
-      <b-breadcrumb-item to="/dashboard">Dashboard</b-breadcrumb-item>
-      <b-breadcrumb-item active>Schedule</b-breadcrumb-item>
-    </b-breadcrumb>
-
-    <b-row>
-      <b-col>
-        <b-row>
-          <b-col>
-            <h2 class="page-title">Schedule</h2>
-          </b-col>
-          <b-col class="text-right">
-            <delete-schedule/>
-            <calendar-settings @closeModal="modalShow = !modalShow"/>
-          </b-col>
-        </b-row>
-      </b-col>
-    </b-row>
+  <div>
     <Widget customHeader>
       <b-row>
-        <b-col md="auto">
+        <b-col cols="5">
           <v-date-picker locale="en"
                          is-expanded
                          @dayclick="onDayClick"
@@ -29,37 +11,40 @@
                          :attributes="attributes"
                          v-model='myDate'/>
         </b-col>
-        <b-col md="8">
+        <b-col md="7">
           <appointments v-if="appointments.length"
                         :appointments="appointments"
                         :schedule="chooseSchedule"
-                        :expert="authExpert"/>
-          <p class="d-flex align-items-center justify-content-center" v-else><br> <br>
-            <b>There are no appointments for <b>{{ selectedDay | moment("dddd, MMMM Do YYYY") }}</b>, please choose
-              another
-              day.</b>
+                        :expert="expert"/>
+          <p class="d-flex align-items-center justify-content-center text-center" v-else><br> <br>
+            <b>There are no matching appointments for <br>
+              <b>{{ selectedDay | moment("dddd, MMMM Do YYYY") }}</b>, <br>
+              please choose another day.
+            </b>
           </p>
         </b-col>
       </b-row>
     </Widget>
-    <schedule-templates/>
   </div>
 </template>
 
 <script>
 
 import {mapGetters, mapActions} from "vuex";
-import Widget from "../../components/Widget/Widget";
-import CalendarSettings from "./components/ScheduleSettings";
-import DeleteSchedule from "./components/DeleteSchedule";
-import ScheduleTemplates from "./components/ScheduleTemplates";
-import Appointments from "./components/appointments/Appointments";
-import {SetApiError} from "../../api/errors";
-import {AppointmentApi} from "../../api/ScheduleApi/appointment";
+import Widget from "../../../components/Widget/Widget";
+import CalendarSettings from "./../components/ScheduleSettings";
+import DeleteSchedule from "./../components/DeleteSchedule";
+import ScheduleTemplates from "./../components/ScheduleTemplates";
+import Appointments from "./../components/appointments/Appointments";
+import {SetApiError} from "../../../api/errors";
+import {AppointmentApi} from "../../../api/ScheduleApi/appointment";
 
 export default {
-  name: "Calendar",
+  name: "ExpertSchedule",
   components: {Widget, CalendarSettings, DeleteSchedule, Appointments, ScheduleTemplates},
+  props: {
+    expert: {type: Object},
+  },
   data() {
     return {
       minDate: new Date(),
@@ -121,16 +106,20 @@ export default {
     }),
   },
   mounted() {
+    this.$bus.on('refreshAppointments', (date) => {
+      this.fetchAppointments(date.date);
+    });
     this.maxDate = this.minDate.setDate(this.minDate.getDate() + 31);
     this.init();
   },
   methods: {
     ...mapActions({
       getSchedule: 'schedule/getSchedule',
+      getExpert: 'experts/getExpertById',
     }),
     async init() {
       try {
-        await this.getSchedule(this.authExpert.id);
+        await this.getSchedule(this.expert.id);
       } catch (e) {
         SetApiError(e);
       }
@@ -148,11 +137,15 @@ export default {
     async fetchAppointments(day) {
       if (day) {
         try {
-          const result = await AppointmentApi.getAppointments(this.authExpert.id, day);
+          const result = await AppointmentApi.getOpenedMatchedAppointments(
+            this.authExpert.id,
+            this.expert.id,
+            day
+          );
           this.appointments = result.data.data;
           this.chooseSchedule = result.data.schedule;
         } catch (e) {
-          SetApiError(e);
+          this.appointments = [];
         }
       }
     },
