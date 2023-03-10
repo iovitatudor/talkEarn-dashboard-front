@@ -4,15 +4,21 @@
       <form class="mt" @submit.prevent="saveForm" v-if="categories.length">
         <b-form-group label="Category" label-for="category">
           <b-input-group>
-            <select id="category"
-                    v-model="form.categoryId"
-                    class="form-control input-transparent pl-3"
-                    required>
-              <option :value="category.id"
-                      :key="key"
-                      v-for="(category, key) in categories">
-                {{ category.name }}
-              </option>
+            <b-form-select v-model="categorySelect.selected"
+                           :options="categorySelect.options"
+                           multiple
+                           required
+                           :select-size="3">
+            </b-form-select>
+<!--            <select id="category"-->
+<!--                    v-model="form.categoryId"-->
+<!--                    class="form-control input-transparent pl-3"-->
+<!--                    required>-->
+<!--              <option :value="category.id"-->
+<!--                      :key="key"-->
+<!--                      v-for="(category, key) in categories">-->
+<!--                {{ category.name }}-->
+<!--              </option>-->
             </select>
           </b-input-group>
         </b-form-group>
@@ -220,6 +226,10 @@ export default {
   components: {Widget},
   data() {
     return {
+      categorySelect: {
+        selected: [],
+        options: [],
+      },
       editorConfig: {
         toolbar: [
           {name: 'Clipboard', items: ['Cut', 'Copy', 'Paste']},
@@ -261,6 +271,9 @@ export default {
     if (this.categories.length) {
       this.form.categoryId = this.categories[0].id;
     }
+    this.categorySelect.options = this.categories.map(category => {
+      return {value: category.id, text: category.name};
+    });
   },
   methods: {
     ...mapActions({
@@ -282,6 +295,7 @@ export default {
       }
       Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));
       formData.append('category_id', this.form.categoryId);
+      formData.append('categoryIds', JSON.stringify(this.categorySelect.selected));
       formData.append('langId', this.defaultLanguage.id);
 
       try {

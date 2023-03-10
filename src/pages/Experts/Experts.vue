@@ -69,12 +69,12 @@
                 </td>
                 <td class="flex-section">
                   <div class="mb-0 mt-0">
-                    <span class="mb-0 mt-0">
-                      <small>
-                        <span class="fw-semi-bold">Category:</span>
-                        <span class="text-muted">&nbsp; {{ expert.category ? expert.category.name : '---' }}</span>
-                      </small>
-                    </span> <br>
+<!--                    <span class="mb-0 mt-0">-->
+<!--                      <small>-->
+<!--                        <span class="fw-semi-bold">Category:</span>-->
+<!--                        <span class="text-muted">&nbsp; {{ expert.category ? expert.category.name : '-&#45;&#45;' }}</span>-->
+<!--                      </small>-->
+<!--                    </span> <br>-->
                     <span class="mb-0">
                       <small>
                         <span class="fw-semi-bold">Profession:</span>

@@ -5,12 +5,18 @@
       <form class="mt" @submit.prevent="saveForm">
         <b-form-group label="Category" label-for="category">
           <b-input-group>
-            <select id="category"
-                    v-model="form.categoryId=expert.categoryId"
-                    class="form-control input-transparent pl-3"
-                    required>
-              <option :value="category.id" v-for="category in categories">{{ category.name }}</option>
-            </select>
+            <!--            <select id="category"-->
+            <!--                    v-model="form.categoryId=expert.categoryId"-->
+            <!--                    class="form-control input-transparent pl-3"-->
+            <!--                    required>-->
+            <!--              <option :value="category.id" v-for="category in categories">{{ category.name }}</option>-->
+            <!--            </select>-->
+            <b-form-select v-model="categorySelect.selected"
+                           :options="categorySelect.options"
+                           multiple
+                           required
+                           :select-size="3">
+            </b-form-select>
           </b-input-group>
         </b-form-group>
         <b-form-group :label="`Name [${defaultLanguage.abbr}]`" label-for="name">
@@ -95,15 +101,20 @@
                    height="100"
                    v-else/>
             </b-col>
-            <b-col class="flex-center" md="6">
+            <b-col class="flex-center" md="3">
               <input class="styled-checkbox" id="styled-checkbox-1" type="checkbox" value="value1"
                      v-model="form.active=expert.active">
               <label for="styled-checkbox-1">Active</label>
             </b-col>
-            <b-col class="flex-center" md="6">
+            <b-col class="flex-center" md="4">
               <input class="styled-checkbox" id="styled-checkbox-2" type="checkbox" value="value1"
                      v-model="form.recommended=expert.recommended">
               <label for="styled-checkbox-2">Recommended</label>
+            </b-col>
+            <b-col class="flex-center" md="5">
+              <input class="styled-checkbox" id="styled-checkbox-3" type="checkbox" value="value1"
+                     v-model="form.show=expert.show">
+              <label for="styled-checkbox-3">Show in {{defaultLanguage.name}}</label>
             </b-col>
           </b-row>
         </b-form-group>
@@ -134,6 +145,10 @@ export default {
   },
   data() {
     return {
+      categorySelect: {
+        selected: [],
+        options: [],
+      },
       editorConfig: {
         toolbar: [
           {name: 'Clipboard', items: ['Cut', 'Copy', 'Paste', 'PasteText']},
@@ -155,6 +170,7 @@ export default {
         price: '',
         active: true,
         recommended: false,
+        show: true,
       },
       avatar: null,
     };
@@ -169,6 +185,12 @@ export default {
   async mounted() {
     try {
       await this.getCategories();
+      this.categorySelect.options = this.categories.map(category => {
+        return {value: category.id, text: category.name};
+      });
+      this.categorySelect.selected = this.expert.categories.map(category => {
+        return category.categoryId;
+      });
       this.form.categoryId = this.expert.categoryId;
     } catch (err) {
       SetApiError(err);
@@ -190,6 +212,7 @@ export default {
           formData.append('avatar', this.avatar);
         }
         formData.append('category_id', this.form.categoryId);
+        formData.append('categoryIds', JSON.stringify(this.categorySelect.selected));
         formData.append('langId', this.defaultLanguage.id);
         formData.append('email', this.expert.email);
         Object.keys(this.form).forEach(key => formData.append(key, this.form[key]));
