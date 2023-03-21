@@ -66,6 +66,7 @@ export default {
       this.initData();
     },
     addService() {
+      this.services = [];
       this.initData();
     },
     editService() {
