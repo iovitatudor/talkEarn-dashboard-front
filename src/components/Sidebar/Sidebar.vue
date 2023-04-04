@@ -104,6 +104,13 @@
           index="users"
           isHeader
         />
+        <NavLink
+          header="Payment"
+          link="/dashboard/payment"
+          iconName="credit-card-fill"
+          index="users"
+          isHeader
+        />
         <!--      <NavLink-->
         <!--        header="Notifications"-->
         <!--        link="/dashboard/notifications"-->

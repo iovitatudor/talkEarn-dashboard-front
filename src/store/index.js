@@ -14,6 +14,7 @@ import client from './client';
 import language from './language';
 import schedule from './schedule';
 import notification from './notification';
+import payment from './payment';
 
 Vue.use(Vuex);
 
@@ -32,5 +33,6 @@ export default new Vuex.Store({
     collection,
     schedule,
     notification,
+    payment,
   },
 });

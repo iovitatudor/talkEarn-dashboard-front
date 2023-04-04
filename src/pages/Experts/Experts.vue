@@ -32,6 +32,7 @@
                 <th>Status</th>
                 <th>Info</th>
                 <th>Price</th>
+                <th>Seller</th>
                 <th>Actions</th>
               </tr>
               </thead>
@@ -69,12 +70,12 @@
                 </td>
                 <td class="flex-section">
                   <div class="mb-0 mt-0">
-<!--                    <span class="mb-0 mt-0">-->
-<!--                      <small>-->
-<!--                        <span class="fw-semi-bold">Category:</span>-->
-<!--                        <span class="text-muted">&nbsp; {{ expert.category ? expert.category.name : '-&#45;&#45;' }}</span>-->
-<!--                      </small>-->
-<!--                    </span> <br>-->
+                    <!--                    <span class="mb-0 mt-0">-->
+                    <!--                      <small>-->
+                    <!--                        <span class="fw-semi-bold">Category:</span>-->
+                    <!--                        <span class="text-muted">&nbsp; {{ expert.category ? expert.category.name : '-&#45;&#45;' }}</span>-->
+                    <!--                      </small>-->
+                    <!--                    </span> <br>-->
                     <span class="mb-0">
                       <small>
                         <span class="fw-semi-bold">Profession:</span>
@@ -86,6 +87,19 @@
                   </div>
                 </td>
                 <td><b>{{ expert.price > 0 ? expert.price + '$/h' : '---' }}</b></td>
+                <td>
+                  <div v-if="expert.seller">
+                    <b-button variant="default" class="mr-3" size="md" @click="trackStatusModal = !trackStatusModal">
+                      Track status
+                    </b-button>
+                    <b-modal v-model="trackStatusModal" :title="`Track ${expert.name} status`" hide-footer>
+                      <seller-info v-if="expert.seller" :seller="expert.seller"/>
+                    </b-modal>
+                  </div>
+                  <div v-else>
+                    ---
+                  </div>
+                </td>
                 <td>
                   <remove-expert :id="expert.id" v-if="expert.type !== 'Administrator'"/>
                   <p v-else>
@@ -110,13 +124,15 @@ import Widget from "../../components/Widget/Widget";
 import {SetApiError} from "../../api/errors";
 import CreateExpert from "./components/CreateExpert";
 import RemoveExpert from "./components/RemoveExpert";
+import SellerInfo from "../Payment/Components/SellerInfo";
 
 export default {
   name: "Experts",
-  components: {Widget, CreateExpert, RemoveExpert},
+  components: {Widget, CreateExpert, RemoveExpert, SellerInfo},
   data() {
     return {
       modalShow: false,
+      trackStatusModal: false,
     }
   },
   computed: {

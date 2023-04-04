@@ -26,6 +26,8 @@ import EditLanguage from './pages/Languages/EditLanguage';
 import MyExperts from "./pages/MyExperts/MyExperts";
 import MySupervisors from "./pages/MySupervisors/MySupervisors";
 import MySupervisee from "./pages/MySupervisee/MySupervisee";
+import Payment from "./pages/Payment/Payment";
+import PaypalCallback from "./pages/Payment/PaypalCallback";
 
 Vue.use(Router);
 
@@ -157,6 +159,16 @@ export default new Router({
           path: 'my-supervisee',
           name: 'MySupervisee',
           component: MySupervisee,
+        },
+        {
+          path: 'payment',
+          name: 'Payment',
+          component: Payment,
+        },
+        {
+          path: 'payment/paypal/callback',
+          name: 'PaypalCallback',
+          component: PaypalCallback,
         },
       ],
     },
