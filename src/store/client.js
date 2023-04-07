@@ -6,19 +6,33 @@ export default {
   state: {
     notAssignedClients: [],
     assignedClients: [],
+    notAssignedClientsMeta: {},
+    assignedClientsMeta: {},
   },
 
   getters: {
     getNotAssignedClients: (state) => state.notAssignedClients,
     getAssignedClients: (state) => state.assignedClients,
+    getNotAssignedClientsMeta: (state) => state.notAssignedClientsMeta,
+    getAssignedClientsMeta: (state) => state.assignedClientsMeta,
   },
 
   mutations: {
-    setNotAssignedClients(state, clients) {
-      state.notAssignedClients = clients;
+    setNotAssignedClients(state, data) {
+      if (data.page === 1) {
+        state.notAssignedClients = data.clients.data;
+      } else {
+        state.notAssignedClients = state.notAssignedClients.concat(data.clients.data);
+      }
+      state.notAssignedClientsMeta = data.clients.meta;
     },
-    setAssignedClients(state, clients) {
-      state.assignedClients = clients;
+    setAssignedClients(state, data) {
+      if (data.page === 1) {
+        state.assignedClients = data.clients.data;
+      } else {
+        state.assignedClients = state.assignedClients.concat(data.clients.data);
+      }
+      state.notAssignedClientsMeta = data.clients.meta;
     },
     deleteClient(state, id) {
       state.notAssignedClients = state.notAssignedClients.filter(client => client.id !== id);
@@ -27,14 +41,14 @@ export default {
   },
 
   actions: {
-    fetchNotAssignedClients({commit}) {
-      return ClientApi.getNotAssigned().then((res) => {
-        commit('setNotAssignedClients', res.data.data);
+    fetchNotAssignedClients({commit}, page) {
+      return ClientApi.getNotAssigned(page).then((res) => {
+        commit('setNotAssignedClients', {clients: res.data, page});
       });
     },
-    fetchAssignedClients({commit}, expertId) {
-      return ClientApi.getAssigned(expertId).then((res) => {
-        commit('setAssignedClients', res.data.data);
+    fetchAssignedClients({commit}, expertId, page) {
+      return ClientApi.getAssigned(expertId, page).then((res) => {
+        commit('setAssignedClients', {clients: res.data, page});
       });
     },
     getClientById({commit}, id) {

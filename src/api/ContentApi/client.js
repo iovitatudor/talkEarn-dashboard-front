@@ -1,12 +1,12 @@
 import {FormDataApiInstance, DefaultApiInstance} from '@/api';
 
 export const ClientApi = {
-  getNotAssigned() {
-    const url = '/api/users?expert_id=0';
+  getNotAssigned(page) {
+    const url = `/api/users?expert_id=0&page=${page}`;
     return FormDataApiInstance.get(url);
   },
-  getAssigned(expertId) {
-    const url = `/api/users?expert_id=${expertId}`;
+  getAssigned(expertId, page) {
+    const url = `/api/users?expert_id=${expertId}&page=${page}`;
     return FormDataApiInstance.get(url);
   },
   getById(id) {

@@ -109,6 +109,12 @@
               </tr>
               </tbody>
             </table>
+
+            <div class="text-center" v-if="metaExperts.totalPages > page">
+              <b-button class="mt-3" variant="success" @click="init()">
+                Load more
+              </b-button>
+            </div>
           </div>
         </Widget>
       </b-col>
@@ -133,12 +139,14 @@ export default {
     return {
       modalShow: false,
       trackStatusModal: false,
+      page: 0,
     }
   },
   computed: {
     ...mapGetters({
       experts: 'experts/getExperts',
       defaultLanguage: 'language/getDefaultLanguage',
+      metaExperts: 'experts/getMetaExperts',
     })
   },
   watch: {
@@ -155,7 +163,8 @@ export default {
     }),
     async init() {
       try {
-        await this.fetchExperts();
+        await this.fetchExperts(Number(this.page) + 1);
+        this.page = this.metaExperts.currentPage;
       } catch (err) {
         SetApiError(err);
       }

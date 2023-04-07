@@ -8,6 +8,9 @@
       <p> {{ appointment.duration }} min</p>
       <b-row v-if="expert.id === authExpert.id">
         <b-col md="6">
+          <b-badge pill variant="success" v-if="appointmentInfo.status === 'paid'">
+            {{ appointmentInfo.status }}
+          </b-badge>
           <b-badge pill variant="success" v-if="appointmentInfo.status === 'reserved'">
             {{ appointmentInfo.status }}
           </b-badge>

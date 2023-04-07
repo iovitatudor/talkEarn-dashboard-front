@@ -18,7 +18,13 @@
         </b-row>
         <Widget customHeader v-if="clients.length">
           <list-clients :clients="clients"/>
+          <div class="text-center" v-if="this.metaClients.totalPages > this.page">
+            <b-button class="mt-3" variant="success" @click="initClients()">
+              Load more
+            </b-button>
+          </div>
         </Widget>
+
         <Widget customHeader v-else>
           <div class="text-center">
             There is no clients yet.
@@ -43,11 +49,13 @@ export default {
   data() {
     return {
       modalShow: false,
+      page: 0,
     }
   },
   computed: {
     ...mapGetters({
       clients: 'client/getNotAssignedClients',
+      metaClients: 'client/getNotAssignedClientsMeta',
     }),
   },
   mounted() {
@@ -62,7 +70,8 @@ export default {
     }),
     async initClients() {
       try {
-        await this.fetchClients();
+        await this.fetchClients(Number(this.page) + 1);
+        this.page = this.metaClients.currentPage;
       } catch (err) {
         SetApiError(err);
       }

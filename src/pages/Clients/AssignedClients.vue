@@ -18,6 +18,11 @@
         </b-row>
         <Widget customHeader v-if="clients.length">
           <list-clients :clients="clients"/>
+          <div class="text-center" v-if="this.metaClients.totalPages > this.page">
+            <b-button class="mt-3" variant="success" @click="initClients()">
+              Load more
+            </b-button>
+          </div>
         </Widget>
         <Widget customHeader v-else>
           <div class="text-center">
@@ -43,12 +48,14 @@ export default {
   data() {
     return {
       modalShow: false,
+      page: 0,
     }
   },
   computed: {
     ...mapGetters({
       clients: 'client/getAssignedClients',
       authExpert: 'auth/getAuthExpert',
+      metaClients: 'client/getNotAssignedClientsMeta',
     })
   },
   mounted() {
@@ -63,7 +70,8 @@ export default {
     }),
     async initClients() {
       try {
-        await this.fetchClients(this.authExpert.id);
+        await this.fetchClients(this.authExpert.id, Number(this.page) + 1);
+        this.page = this.metaClients.currentPage;
       } catch (err) {
         SetApiError(err);
       }

@@ -6,16 +6,23 @@ export default {
   state: {
     experts: [],
     lastCreatedExpert: null,
+    metaExperts: {},
   },
 
   getters: {
     getExperts: (state) => state.experts,
     getLastCreatedExpert: (state) => state.lastCreatedExpert,
+    getMetaExperts: (state) => state.metaExperts,
   },
 
   mutations: {
-    setExperts(state, experts) {
-      state.experts = experts;
+    setExperts(state, data) {
+      if (data.page === 1) {
+        state.experts = data.experts;
+      } else {
+        state.experts = state.experts.concat(data.experts);
+      }
+      state.metaExperts = data.meta;
     },
     addExpert(state, expert) {
       state.experts.unshift(expert);
@@ -32,11 +39,12 @@ export default {
       commit('addExpert', result.data);
       return result.data;
     },
-    fetchExperts({commit, rootGetters}) {
+    fetchExperts({commit, rootGetters}, page) {
       const defaultLanguage = rootGetters['language/getDefaultLanguage'];
       const languageAbbr = defaultLanguage ? defaultLanguage.abbr : '';
-      return ExpertApi.getAll(languageAbbr).then((res) => {
-        commit('setExperts', res.data.data);
+      return ExpertApi.getAll(languageAbbr, page).then((res) => {
+        // console.log(res.data.meta);
+        commit('setExperts', {experts: res.data.data, meta: res.data.meta, page: page});
       });
     },
     getExpertById({commit, rootGetters}, id) {
