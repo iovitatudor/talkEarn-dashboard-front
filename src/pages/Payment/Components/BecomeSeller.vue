@@ -55,7 +55,7 @@ export default {
             'EXPRESS_CHECKOUT'
           ],
           'partner_config_override': {
-            'return_url': 'https://core.instantexpert.online/dashboard/payment/paypal/callback',
+            'return_url': 'https://dashboard.instantexpert.online/dashboard/payment/paypal/callback',
           },
           'legal_consents': [
             {
